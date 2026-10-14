@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Conversion Advantage</title>
 <meta name="description" content="Conversion Advantage is a boutique performance digital marketing agency based at Milkwood Square, Knysna. Google Ads, social media, SEO, microsites and web design.">
+<link rel="preload" href="assets/fonts/coolvetica-rg.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@300..600&display=swap">
@@ -13,7 +14,7 @@
 <body>
 <style>
 /* Brand faces: uses the real CI fonts when installed locally (or once font files are added), otherwise the Google stand-ins. */
-@font-face{font-family:"CA Display";src:local("Coolvetica Book"),local("Coolvetica-Book"),local("Coolvetica Rg"),local("CoolveticaRg-Regular"),local("Coolvetica Regular"),local("Coolvetica");font-weight:100 900;font-display:swap}
+@font-face{font-family:"CA Display";src:local("Coolvetica Rg"),local("CoolveticaRg-Regular"),url("assets/fonts/coolvetica-rg.woff2") format("woff2");font-weight:100 900;font-display:swap}
 @font-face{font-family:"CA Text";src:local("Aspekta"),local("Aspekta Regular"),local("Aspekta-400"),local("Aspekta Full");font-weight:100 900;font-display:swap}
 
 :root{
@@ -148,7 +149,7 @@ h1,h2,h3,h4,p{margin:0}
 .sec-head h2{font-size:clamp(3.4rem,11vw,11rem)}
 .sec-head p{color:var(--slate)}
 .stack{display:grid;gap:28vh}
-.svc{position:sticky;top:calc(var(--nav-h) + 8px + var(--i) * var(--peek, 8px));min-height:min(76vh,660px);border-radius:var(--r);display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(20px,4vw,64px);padding:clamp(24px,4vw,56px);overflow:visible;transform-origin:50% 0;background:var(--mist);color:var(--ink);box-shadow:0 -1px 0 rgba(255,255,255,.4) inset}
+.svc{--card-h:min(83.6vh,726px);position:sticky;top:calc(max(var(--nav-h) + 8px, (100vh - var(--card-h)) / 2) + var(--i) * var(--peek, 8px));min-height:var(--card-h);border-radius:var(--r);display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(20px,4vw,64px);padding:clamp(24px,4vw,56px);overflow:visible;transform-origin:50% 0;background:var(--mist);color:var(--ink);box-shadow:0 -1px 0 rgba(255,255,255,.4) inset}
 .svc.dark{background:var(--ink);color:var(--cream)}
 .svc.sand{background:var(--mist)}
 .svc-shade{display:none}
@@ -569,13 +570,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:var(--cream);padd
   /* services: every card fits one screen so the stack works under a thumb */
   .sec-head{padding-block:2vh 5vh}
   .stack{gap:52svh}
-  .svc{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;min-height:0;height:calc(100svh - 96px);top:calc(10px + var(--i) * 6px);padding:44px 16px 16px;gap:16px;border-radius:24px}
+  .svc{grid-template-columns:1fr;grid-template-rows:minmax(0,calc(100svh - 351px)) minmax(0,1fr);min-height:0;height:calc(100svh - 22px - var(--i) * 6px);top:calc(10px + var(--i) * 6px);padding:44px 16px 16px;gap:16px;border-radius:24px}
   .svc-visual{order:-1;min-height:0;height:100%;border-radius:16px}
-  .svc-copy{gap:12px;min-height:0;justify-content:flex-start}
+  .svc-copy{gap:12px;min-height:0;justify-content:space-between;padding-top:4px}
   .svc-name{font-size:clamp(2.3rem,10.5vw,3.4rem)}
   .svc h3{font-size:clamp(1.25rem,5.4vw,1.6rem);max-width:none}
-  .svc-body{gap:12px}
-  .svc-body p{font-size:15px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .svc-body{gap:14px}
+  .svc-body p{font-size:15px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .svc .tags{display:none}
   .tags{flex-wrap:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
   .tags li{white-space:nowrap}
@@ -1354,11 +1355,12 @@ footer{position:relative;z-index:2;background:var(--ink);color:var(--cream);padd
     if (st !== navHide.st) { navHide.st = st; document.documentElement.style.setProperty('--stick', st); }
     clearTimeout(navHide.t); navHide.t = setTimeout(() => fab.classList.remove('mini'), 900);
     const end = y + innerHeight >= (navHide.h || (navHide.h = document.documentElement.scrollHeight)) - 60;
-    if (end !== navHide.end) { navHide.end = end; $('#gblur').classList.toggle('off', end); }
+    const blurOff = end || inSvc;                       /* phones: no bottom blur over the service cards' buttons */
+    if (blurOff !== navHide.end) { navHide.end = blurOff; $('#gblur').classList.toggle('off', blurOff); }
     lastY = y;
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { navTheme(); navHide(); ticking = false; }); } }, { passive: true });
-  navTheme();
+  navTheme(); navHide();
 
   /* ---- motion ---- */
   if (!window.gsap || !window.ScrollTrigger || reduce) return;
