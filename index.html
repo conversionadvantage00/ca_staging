@@ -360,6 +360,7 @@ h1,h2,h3,h4,p{margin:0}
 .ma-with{font-size:.62em}
 .ma-fix .grad{font-size:1.18em;line-height:1.05;padding-bottom:.08em;margin-bottom:0}
 .ma-pause{z-index:7}
+.ma-fix .grad .m{display:none}   /* phones say "social media" (the card has no name there), desktop says "meta ads" */
 
 /* short image box (phones, stacked card): tighter collage, no bottom-left card under the headline */
 @container (max-height:360px){
@@ -1090,6 +1091,10 @@ html.pop-lock #gblur{opacity:0}
   .svc-visual{order:-1;min-height:0;height:100%;border-radius:16px}
   .svc-copy{gap:12px;min-height:0;justify-content:space-between;padding-top:4px}
   .svc-name{font-size:clamp(2.3rem,10.5vw,3.4rem)}
+  /* phones, cards whose window carries its own headline (.titled: google ads, social media for now): the headline is the title, the name goes and the window takes the room, roughly 2:3 (Sean, 26 Oct). the other four follow once their windows have content */
+  .svc.titled{grid-template-rows:minmax(0,calc(100svh - 296px)) minmax(0,1fr)}
+  .svc.titled .svc-name{display:none}
+  .ma-fix .grad .d{display:none}.ma-fix .grad .m{display:inline}
   .svc h3{font-size:clamp(1.25rem,5.4vw,1.6rem);max-width:none}
   .svc-body{gap:14px}
   .svc-body p{font-size:15px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -1207,7 +1212,7 @@ html.pop-lock #gblur{opacity:0}
     </div>
     <div class="stack" id="stack">
 
-      <article class="svc" style="--i:0">
+      <article class="svc titled" style="--i:0">
         <div class="svc-shade"></div>
         <div class="svc-copy">
           <p class="svc-name">google ads</p>
@@ -1308,7 +1313,7 @@ html.pop-lock #gblur{opacity:0}
         </div>
       </article>
 
-      <article class="svc dark" style="--i:1">
+      <article class="svc dark titled" style="--i:1">
         <div class="svc-shade"></div>
         <div class="svc-copy">
           <p class="svc-name">social media</p>
@@ -1399,7 +1404,7 @@ html.pop-lock #gblur{opacity:0}
             </div>
 
             <i class="ma-wash" aria-hidden="true"></i>
-            <p class="ma-head"><span class="ma-rot"><span class="on">build awareness</span><span>spark engagement</span><span>stand out</span><span>start conversations</span><span>capture leads</span><span>win new customers</span></span><span class="ma-fix"><span class="ma-with">with</span> <span class="grad">meta ads</span></span></p>
+            <p class="ma-head"><span class="ma-rot"><span class="on">build awareness</span><span>spark engagement</span><span>stand out</span><span>start conversations</span><span>capture leads</span><span>win new customers</span></span><span class="ma-fix"><span class="ma-with">with</span> <span class="grad"><span class="d">meta ads</span><span class="m">social media</span></span></span></p>
             <button class="gad-pause ma-pause" type="button" aria-label="pause animation"><i></i></button>
           </div>
         </div>
