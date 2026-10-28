@@ -69,10 +69,10 @@ h1,h2,h3,h4,p{margin:0}
 .nav-cta:hover i{transform:translateX(3px)}
 
 /* ---------- buttons: flat fill, gradient hairline, three-colour glow that leans to the cursor, diagonal sheen, edge light ---------- */
-.btn{--mx:0;--my:0;--ring:1px;--ring-o:.6;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5em;height:46px;padding:0 22px;border-radius:14px;font-size:15px;background:var(--ink);color:var(--cream);box-shadow:calc(-10px + var(--mx)*5px) calc(10px + var(--my)*3px) 26px -18px rgba(253,157,35,.7),calc(var(--mx)*5px) calc(12px + var(--my)*3px) 28px -16px rgba(243,49,137,.65),calc(10px + var(--mx)*5px) calc(10px + var(--my)*3px) 26px -18px rgba(98,122,255,.7);transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .6s cubic-bezier(.2,.7,.2,1)}
+.btn{--mx:0;--my:0;--ring:1px;--ring-o:.6;--glow1:253,157,35;--glow2:243,49,137;--glow3:98,122,255;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5em;height:46px;padding:0 22px;border-radius:14px;font-size:15px;background:var(--ink);color:var(--cream);box-shadow:calc(-10px + var(--mx)*5px) calc(10px + var(--my)*3px) 26px -18px rgba(var(--glow1),.7),calc(var(--mx)*5px) calc(12px + var(--my)*3px) 28px -16px rgba(var(--glow2),.65),calc(10px + var(--mx)*5px) calc(10px + var(--my)*3px) 26px -18px rgba(var(--glow3),.7);transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .6s cubic-bezier(.2,.7,.2,1)}
 .work .btn,.cta .btn,.svc.dark .btn,.fab.inv{--ring:1px;--ring-o:.9}
 .btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:var(--ring);opacity:var(--ring-o);background:linear-gradient(110deg,var(--g1),var(--g2),var(--g3),var(--g4),var(--g5));background-size:220% 100%;animation:gradShift 6s ease-in-out infinite alternate;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-.btn:hover{transform:translateY(-2px);box-shadow:calc(-14px + var(--mx)*6px) calc(14px + var(--my)*4px) 34px -18px rgba(253,157,35,.85),calc(var(--mx)*6px) calc(16px + var(--my)*4px) 36px -16px rgba(243,49,137,.8),calc(14px + var(--mx)*6px) calc(14px + var(--my)*4px) 34px -18px rgba(98,122,255,.85)}
+.btn:hover{transform:translateY(-2px);box-shadow:calc(-14px + var(--mx)*6px) calc(14px + var(--my)*4px) 34px -18px rgba(var(--glow1),.85),calc(var(--mx)*6px) calc(16px + var(--my)*4px) 36px -16px rgba(var(--glow2),.8),calc(14px + var(--mx)*6px) calc(14px + var(--my)*4px) 34px -18px rgba(var(--glow3),.85)}
 .btn.light{background:var(--cream);color:var(--ink)}
 .btn::after{content:"";position:absolute;inset:var(--ring);border-radius:13px;pointer-events:none;background:linear-gradient(105deg,rgba(250,247,244,0) 35%,rgba(250,247,244,.3) 48%,rgba(250,247,244,0) 60%);background-size:300% 100%;background-position:120% 0;transition:background-position 1.2s cubic-bezier(.2,.7,.2,1)}
 .btn:hover::after{background-position:-20% 0}
@@ -360,6 +360,7 @@ h1,h2,h3,h4,p{margin:0}
 .ma-with{font-size:.62em}
 .ma-fix .grad{font-size:1.18em;line-height:1.05;padding-bottom:.08em;margin-bottom:0}
 .ma-pause{z-index:7}
+.rand{text-transform:none}   /* rand amounts keep their capital R inside the lowercase page (Sean, 27 Oct) */
 .ma-fix .grad .m{display:none}   /* phones say "social media" (the card has no name there), desktop says "meta ads" */
 
 /* short image box (phones, stacked card): tighter collage, no bottom-left card under the headline */
@@ -609,139 +610,735 @@ h1,h2,h3,h4,p{margin:0}
   .pm-ch{transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1))}
 }
 
-/* web design card: website promo — wireframe screens glide in, tilt in 3d and blur away, each with a title */
-.wd{position:absolute;inset:0;container-type:size;overflow:hidden}
-.wd-scene{position:absolute;inset:0;pointer-events:none}
-.wd-screen{position:absolute;right:6cqw;top:max(16px,8cqh);width:min(80cqw,72cqh,640px);opacity:0;transform:translate3d(12cqw,0,0) scale(.96);transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
-.wd-scene.on .wd-screen{opacity:1;transform:none}
-.wd-scene.out .wd-screen{opacity:0;transform:translate3d(-12cqw,0,0) scale(.96);transition-duration:.9s,.5s}
-.wd-scene.alt .wd-screen{right:auto;left:6cqw;transform:translate3d(-12cqw,0,0) scale(.96)}
-.wd-scene.alt.on .wd-screen{transform:none}
-.wd-scene.alt.out .wd-screen{transform:translate3d(12cqw,0,0) scale(.96)}
-.wd-float{border-radius:14px;box-shadow:0 30px 50px -24px rgba(0,0,0,.6)}
-.wd-mob .wd-float{border-radius:16% / 8%}
-.wd-scene.on .wd-float{animation:wdDrift 4.2s linear both}
-.wd.held .wd-float{animation-play-state:paused}
-@keyframes wdDrift{from{transform:translateX(1cqw)}to{transform:translateX(-1cqw)}}
-.wd .browser{width:100%;font-size:max(6px,1.55cqw);box-shadow:none}
-.wd .browser-bar{padding:.9em 1em}
-.wd .browser-bar i{width:.8em;height:.8em}
-.wd .browser-bar span{height:1.6em;font-size:.9em}
-.wf{padding:1.3em;display:grid;gap:1em}
-.wf i,.wf b,.wd-pscreen i{display:block;border-radius:.4em}
-.wf-nav{display:flex;align-items:center;gap:.8em}
-.wf-nav b{width:5em;height:1.1em;background:var(--ink)}
-.wf-nav span{height:.55em;width:2.6em;border-radius:.3em;background:var(--mist)}
-.wf-nav span:first-of-type{margin-left:auto}
-.wf-banner{background:var(--ink);border-radius:.7em;padding:2em 1.6em;display:grid;gap:.8em;position:relative;overflow:hidden}
-.wf-banner::after{content:"";position:absolute;right:-4%;bottom:-18%;width:46%;aspect-ratio:1;border-radius:50%;background:var(--slate);opacity:.6}
-.wf-banner .wf-h{width:60%;height:2.2em;background:var(--cream)}
-.wf-banner .wf-l{width:44%;height:.6em;background:rgba(250,247,244,.4)}
-.wf-h{height:2.2em;width:72%;background:var(--ink)}
-.wf-l{height:.6em;width:80%;background:var(--mist)}
-.wf-l.s{width:56%}
-.wf-btn{width:7.5em;height:2em;background:var(--ink)}
-.wf-banner .wf-btn{background:var(--cream)}
-.wf-btn.ring{position:relative;background:var(--ink)}
-.wf-btn.ring::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(110deg,var(--g1),var(--g2),var(--g3),var(--g4),var(--g5));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-.wf-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8em}
-.wf-row i{aspect-ratio:4/3;background:var(--mist);border-radius:.6em}
-.wf-split{grid-template-columns:1.1fr 1fr;align-items:center;gap:1.6em;padding-block:2.2em}
-.wf-col{display:grid;gap:.9em}
-.wf-col .wf-h{width:92%}
-.wf-form{background:var(--mist);border-radius:.8em;padding:1.2em;display:grid;gap:.7em}
-.wf-form i{height:1.8em;background:var(--cream);border-radius:.4em}
-.wf-form b{height:2em;background:var(--ink);border-radius:.4em}
-.wf-check{gap:.8em}
-.wf-check .wf-h{width:46%;margin-bottom:.4em}
-.wf-check span{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.9em;padding:.8em 1em;border-radius:.6em;background:var(--mist)}
-.wf-check b{width:1.5em;height:1.5em;border-radius:50%!important;background:var(--ink);position:relative}
-.wf-check b::after{content:"";position:absolute;left:.48em;top:.3em;width:.34em;height:.62em;border:solid var(--cream);border-width:0 .16em .16em 0;transform:rotate(45deg)}
-.wf-check span i{height:.6em;background:rgba(23,24,27,.16)}
-.wf-check span:nth-child(odd) i{width:70%}
-.wf-check em{width:3em;height:1.3em;border-radius:999px;box-shadow:inset 0 0 0 1px var(--ink)}
-.wd-mob{width:min(34cqw,26cqh,260px);right:16cqw}
-.wd-phone{aspect-ratio:9/18.5;border-radius:16% / 8%;background:var(--ink);padding:5%;box-shadow:inset 0 0 0 1.5px rgba(250,247,244,.14)}
-.wd-pscreen{height:100%;border-radius:12% / 6%;background:var(--cream);padding:14% 9% 9%;display:flex;flex-direction:column;gap:.55em;font-size:max(5px,1.4cqw)}
-.wd-pscreen .p-hero{flex:0 0 42%;background:var(--ink);border-radius:.8em}
-.wd-pscreen .wf-l{width:90%}.wd-pscreen .wf-l.s{width:64%}
-.wd-pscreen .wf-btn{width:100%;height:2.4em;margin-top:.3em}
-.p-row{display:grid;grid-template-columns:1fr 1fr;gap:.5em;margin-top:auto}
-.p-row i{aspect-ratio:1;background:var(--mist);border-radius:.6em}
-.wd-copy{position:absolute;left:7cqw;bottom:max(16px,8cqh);width:min(64cqw,26ch);color:var(--cream);opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-.wd-scene.alt .wd-copy{left:auto;right:7cqw;text-align:right}
-.wd-scene.on .wd-copy{opacity:1;transform:none;transition-delay:.4s}
-.wd-scene.out .wd-copy{opacity:0;transform:translateY(-10px);transition-delay:0s}
-.wd-t{font-family:var(--display);font-weight:600;font-size:min(7.5cqw,9cqh);line-height:.9;letter-spacing:var(--track-d)}
-.wd-s{font-size:max(12px,2.7cqmin);line-height:1.4;opacity:.75;margin-top:.7em}
-.wd-scene.alt .wd-s{margin-left:auto;max-width:30ch}
-.wd-pause{background:var(--cream);color:var(--ink);z-index:3}
-@container (max-height:340px){
-  .wd-screen{width:min(58cqw,66cqh,420px);top:10px}
-  .wd-mob{width:min(24cqw,22cqh,140px)}
-  .wd-t{font-size:min(7cqw,10cqh)}
-  .wd-s{display:none}
+/* seo card: organic discovery cycle on ink with a graph-paper grid — three places you get found without paying for the click (rankings climb, google ai overview, chatgpt answer), one gradient stop each. ported from Sean's "SEO Card" preview artifact, 27 Oct 2026; shares .sf/.bob/.bd/@keyframes bob,land,caret with the other windows, .so-scoped where the canvas differs */
+.so{position:absolute;inset:0;z-index:1;container-type:size;overflow:hidden;background:var(--ink);color:var(--cream);font-size:max(7px,1.5cqmin);line-height:1.3;--lk:#1A0DAB;--gb:#4285F4;--gr:#EA4335;--gy:#FBBC04;--gg:#34A853;--c:var(--g1)}
+/* graph-paper grid: fine lines, a heavier line every fifth */
+.so-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(250,247,244,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(250,247,244,.05) 1px,transparent 1px),linear-gradient(rgba(250,247,244,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(250,247,244,.09) 1px,transparent 1px);background-size:11px 11px,11px 11px,55px 55px,55px 55px;-webkit-mask-image:radial-gradient(75% 65% at 55% 35%,#000 20%,transparent 100%);mask-image:radial-gradient(75% 65% at 55% 35%,#000 20%,transparent 100%)}
+.so-orb{position:absolute;left:0;top:0;width:min(72cqw,72cqh);aspect-ratio:1;border-radius:50%;background:var(--c);opacity:.22;filter:blur(1.4em);transform:translate(calc(var(--ox) - 50%),calc(var(--oy) - 50%));transition:transform 1.3s var(--ease-out),background-color .9s ease;--ox:50cqw;--oy:32cqh}
+.so[data-on="ai"]{--c:var(--g3)}.so[data-on="ch"]{--c:var(--g5)}
+.so[data-on="ai"] .so-orb{--ox:52cqw;--oy:30cqh}
+.so[data-on="ch"] .so-orb{--ox:48cqw;--oy:34cqh}
+.so-wash{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(23,24,27,0) 64%,rgba(23,24,27,.82) 82%,var(--ink) 94%);z-index:5}
+
+/* surfaces: one at a time; the javascript measures each and scales it to sit centred above the headline */
+:where(.so) .sf{--fit:1;position:absolute;left:0;top:0;width:var(--w);transform:translateY(1.2em) rotate(var(--t)) scale(calc(var(--fit) * .94));transform-origin:0 0;transition:transform .9s var(--ease-out),opacity .5s ease,visibility 0s linear .5s;opacity:0;visibility:hidden;z-index:2;border-radius:1.1em;background:#fff;color:var(--ink);box-shadow:0 1.6em 3em -1.6em rgba(0,0,0,.8),0 0 0 1px rgba(250,247,244,.06);will-change:transform}
+:where(.so) .sf.on{transform:scale(var(--fit));opacity:1;visibility:visible;z-index:4;transition:transform .9s var(--ease-out) .2s,opacity .5s ease .2s,visibility 0s}
+:where(.so) .sf > .bob{animation:bob 6s ease-in-out infinite;display:grid;min-width:0}
+.so.held *{animation-play-state:paused!important}
+
+/* badges: one gradient stop each, with a plain glyph */
+:where(.so) .bd{position:absolute;width:3.2em;height:3.2em;border-radius:50%;background:var(--pc);color:#fff;display:grid;place-items:center;box-shadow:0 .6em 1.2em -.6em rgba(0,0,0,.6),0 0 0 .22em var(--ink);z-index:5;transition:transform .9s var(--ease-out)}
+
+/* shared bits */
+.qbar{display:flex;align-items:center;gap:.6em;height:2.6em;border-radius:1.3em;box-shadow:inset 0 0 0 1px var(--line);padding:0 .9em;font-size:.95em;color:var(--ink);white-space:nowrap;overflow:hidden}
+.qbar svg{width:1.1em;height:1.1em;color:var(--slate);flex:none}
+.fav{width:1.6em;height:1.6em;border-radius:50%;background:var(--mist);display:grid;place-items:center;font-weight:600;font-size:.8em;color:var(--slate);flex:none}
+
+/* 1 · rankings: the client's result climbs from position 7 to position 1 */
+.sf-rk{--pc:var(--g1);--w:64cqw;--t:-2deg}
+.sf-rk .bd{right:-1.1em;top:-1.1em}
+.sf-rk .bob{padding:.9em 1em 1em;gap:.7em}
+.rk-list{display:grid;gap:.4em;position:relative;--rh:3.3em}
+.rk-row{height:var(--rh);display:grid;grid-template-columns:auto 1fr;gap:.6em;align-items:center;padding:0 .6em;border-radius:.6em}
+.rk-row span{display:grid;line-height:1.15;min-width:0}
+.rk-row b{font-weight:500;font-size:.95em;color:var(--lk);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk-row small{font-size:.74em;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk-row.dim{opacity:.5}
+.rk-row.me{position:relative;background:#fff;box-shadow:inset 0 0 0 1px var(--g1),0 .8em 1.6em -.9em rgba(23,24,27,.5);z-index:2;grid-template-columns:auto 1fr auto}
+.rk-row.me b{color:var(--ink);font-weight:600}
+.rk-pos{font-size:.72em;font-weight:600;color:var(--cream);background:var(--ink);padding:.3em .65em;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rk-pos::after{content:"position 7"}
+/* on: the client row rises past the four above it; they each step down one slot */
+.sf-rk.on .rk-row.me{animation:climb 2.2s cubic-bezier(.65,0,.2,1) .7s both}
+.sf-rk.on .rk-row.dim{animation:stepDown 2.2s cubic-bezier(.65,0,.2,1) .7s both}
+.sf-rk.on .rk-pos::after{animation:pos 2.2s steps(1,end) .7s both}
+@keyframes climb{to{transform:translateY(calc((var(--rh) + .4em) * -4))}}
+@keyframes stepDown{to{transform:translateY(calc(var(--rh) + .4em))}}
+@keyframes pos{0%{content:"position 7"}18%{content:"position 5"}40%{content:"position 3"}64%{content:"position 2"}88%{content:"position 1"}100%{content:"position 1"}}
+
+/* 2 · ai overview: the answer writes itself, then cites the client */
+.sf-ai{--pc:var(--g3);--w:66cqw;--t:2deg}
+.sf-ai .bd{left:-1.1em;top:-1.1em}
+.sf-ai .bob{padding:.9em 1em 1em;gap:.7em}
+.ai-box{border-radius:.8em;padding:.9em 1em;background:linear-gradient(135deg,rgba(66,133,244,.08),rgba(243,49,137,.08));box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:.6em}
+.ai-top{display:flex;align-items:center;gap:.5em;font-weight:600;font-size:.9em}
+.ai-top svg{width:1.3em;height:1.3em}
+.ai-txt{display:grid;gap:.35em;font-size:.85em;line-height:1.4;color:var(--ink)}
+.ai-txt span{display:block;white-space:nowrap;overflow:hidden;width:0;max-width:100%}
+.ai-txt span.w2{width:0}
+.sf-ai.on .ai-txt span{animation:typeLine .7s steps(40,end) both}
+.sf-ai.on .ai-txt span:nth-child(1){animation-delay:.5s}.sf-ai.on .ai-txt span:nth-child(2){animation-delay:1.2s}.sf-ai.on .ai-txt span:nth-child(3){animation-delay:1.9s}
+@keyframes typeLine{to{width:100%}}
+.ai-txt b{font-weight:600;color:var(--g3)}
+.ai-src{display:flex;flex-wrap:wrap;gap:.4em;font-size:.76em}
+.ai-src span{display:inline-flex;align-items:center;gap:.35em;padding:.3em .7em .3em .35em;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);color:var(--slate);opacity:0;transform:translateY(.3em)}
+.sf-ai.on .ai-src span{animation:land .4s ease both}
+.sf-ai.on .ai-src span:nth-child(1){animation-delay:2.7s}.sf-ai.on .ai-src span:nth-child(2){animation-delay:2.9s}.sf-ai.on .ai-src span:nth-child(3){animation-delay:3.1s}
+.ai-src span.me{color:var(--ink);font-weight:500;box-shadow:inset 0 0 0 1px var(--g3)}
+.ai-src .fav{width:1.4em;height:1.4em;font-size:.75em}
+.ai-src span.me .fav{background:var(--g3);color:#fff}
+.ai-more{font-size:.78em;color:var(--slate);display:flex;justify-content:space-between;align-items:center}
+.ai-more i{width:.5em;height:.5em;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)}
+
+/* 3 · chatgpt: the question, then an answer that recommends the client */
+.sf-ch{--pc:var(--g5);--w:62cqw;--t:-2deg}
+.sf-ch .bd{right:-1.1em;top:-1.1em}
+.sf-ch .bob{padding:.9em 1em 1em;gap:.8em}
+.ch-head{display:flex;align-items:center;gap:.5em;font-size:.85em;font-weight:500;color:var(--slate)}
+.ch-head i{width:1.6em;height:1.6em;border-radius:50%;background:var(--ink);display:grid;place-items:center;color:#fff}
+.ch-head svg{width:60%;height:60%}
+.ch-q{justify-self:end;max-width:85%;background:var(--mist);padding:.55em .85em;border-radius:1em 1em .3em 1em;font-size:.88em;line-height:1.3}
+.ch-a{display:grid;gap:.45em;font-size:.86em;line-height:1.4;opacity:0}
+.sf-ch.on .ch-a{animation:land .4s ease .9s both}
+.ch-a p{white-space:nowrap;overflow:hidden;width:0;max-width:100%}
+.sf-ch.on .ch-a p{animation:typeLine .8s steps(44,end) both}
+.sf-ch.on .ch-a p:nth-of-type(1){animation-delay:1s}
+.ch-pick{display:grid;grid-template-columns:auto 1fr;gap:.6em;align-items:center;padding:.55em .7em;border-radius:.7em;box-shadow:inset 0 0 0 1px var(--g5);opacity:0;transform:translateY(.4em)}
+.sf-ch.on .ch-pick{animation:land .5s var(--ease-out) 2s both}
+.ch-pick i{width:2.6em;height:2.6em;border-radius:.5em;background-image:url(assets/industries/hotels.webp);background-size:cover;background-position:center}
+.ch-pick span{display:grid;line-height:1.2;min-width:0}
+.ch-pick b{font-weight:600}
+.ch-pick small{font-size:.8em;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ch-a p:nth-of-type(2){animation-delay:2.6s}
+.sf-ch.on .ch-a p:nth-of-type(2){animation-delay:2.6s}
+.ch-cur{display:inline-block;width:.55em;height:1em;background:var(--ink);vertical-align:-.15em;margin-left:.1em;animation:caret .8s step-end infinite}
+.ch-in{display:flex;align-items:center;gap:.5em;margin-top:.2em}
+.ch-in i{flex:1;height:2.2em;border-radius:1.1em;background:var(--mist);font-style:normal;color:var(--slate);font-size:.8em;line-height:2.75em;padding-left:1em}
+.ch-in b{width:1.9em;height:1.9em;border-radius:50%;background:var(--ink);display:grid;place-items:center;color:#fff}
+.ch-in svg{width:50%;height:50%}
+
+/* headline: rotating phrase over "with seo" */
+.so-head{position:absolute;left:6cqw;bottom:max(14px,7cqh);right:6cqw;margin:0;z-index:6;font-family:var(--display);font-weight:600;font-size:min(9.6cqw,13.5cqh);line-height:.98;letter-spacing:var(--track-d);color:var(--cream)}
+.so-rot{position:relative;display:block;height:1.12em;overflow:visible;font-size:.65em;margin-bottom:.12em}
+.so-rot span{position:absolute;left:0;top:0;white-space:nowrap;transform:translateY(.45em);opacity:0;transition:transform .9s var(--ease-out),opacity .6s ease}
+.so-rot span.on{transform:none;opacity:1;transition-delay:.12s}
+.so-rot span.out{transform:translateY(-.45em);opacity:0}
+.so-fix{display:flex;align-items:baseline;gap:.22em;white-space:nowrap;margin-top:-.46em}
+.so-with{font-size:.62em}
+.so-fix .grad{font-size:1.18em;line-height:1.05;padding-bottom:.08em;margin-bottom:0}
+.so-pause{z-index:7}
+
+@container (max-height:360px){
+  .so{font-size:max(7px,1.7cqmin)}
+  .sf-rk{--w:62cqw}.sf-ai{--w:64cqw}.sf-ch{--w:60cqw}
+  .so-wash{background:linear-gradient(180deg,rgba(23,24,27,0) 40%,rgba(23,24,27,.9) 70%,var(--ink) 88%)}
+  .so-head{font-size:min(10cqw,14cqh)}
+  .so-orb{width:80cqh}
 }
-@container (max-aspect-ratio:9/10) and (min-height:341px){
-  .wd-screen{width:min(82cqw,78cqh);right:9cqw;top:8cqh}
-  .wd-scene.alt .wd-screen{left:9cqw}
-  .wd-mob{width:min(36cqw,26cqh);right:32cqw}
-  .wd-scene.alt .wd-copy{left:7cqw;right:auto;text-align:left}
-  .wd-scene.alt .wd-s{margin-left:0}
-  .wd-t{font-size:10.5cqw}
+@container (max-aspect-ratio:9/10) and (min-height:361px){
+  .so{font-size:2.15cqw}
+  .sf-rk{--w:86cqw}.sf-ai{--w:88cqw}.sf-ch{--w:84cqw}
+  .so-head{font-size:11cqw}
 }
-@media (prefers-reduced-motion:reduce){.wd-pause{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .sf,.so-orb,.so-rot span,.bd{transition:none}
+  .so :is(.bob,.ch-cur,.rk-pos::after){animation:none!important}
+  .rk-row.me{transform:translateY(calc((var(--rh) + .4em) * -4))}.rk-row.dim{transform:translateY(calc(var(--rh) + .4em))}
+  .rk-pos::after{content:"position 1"}
+  .ai-txt span,.ch-a p{width:100%;animation:none!important}
+  .ai-src span,.ch-a,.ch-pick{opacity:1;transform:none;animation:none!important}
+}
+
+/* web design card: sites that do their job, on cream — five kinds of site take turns doing the one thing they were built for (a shop sells, a lodge takes a booking, a dealership books a test drive, a b2b site wins a quote, one design fits every screen), one gradient stop each. ported from Sean's "Web Design Card" preview artifact, 27 Oct 2026; shares .sf/.bob/.bd/.pic with the other windows; renamed here to avoid the page's own classes: .nav→.wb-nav, .bar→.wb-bar, .fld→.b2-fld, .cur→.wb-cur, .toast→.wb-toast, .pbtn→.wb-btn, .wm→.wb-wm, keyframes pop/shrink/bar→wbPop/wbShrink/rlBar */
+.wb{position:absolute;inset:0;z-index:1;container-type:size;overflow:hidden;background:var(--cream);color:var(--ink);font-size:max(7px,1.5cqmin);line-height:1.3;--ok:#1E9E5A;--c:var(--g1)}
+/* a faint layout grid: the designer's columns */
+.wb-grid{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(23,24,27,.05) 1px,transparent 1px);background-size:8.333% 100%;-webkit-mask-image:radial-gradient(75% 65% at 55% 35%,#000 20%,transparent 100%);mask-image:radial-gradient(75% 65% at 55% 35%,#000 20%,transparent 100%)}
+.wb-orb{position:absolute;left:0;top:0;width:min(72cqw,72cqh);aspect-ratio:1;border-radius:50%;background:var(--c);opacity:.14;filter:blur(1.4em);transform:translate(calc(var(--ox) - 50%),calc(var(--oy) - 50%));transition:transform 1.3s var(--ease-out),background-color .9s ease;--ox:50cqw;--oy:32cqh}
+.wb[data-on="bk"]{--c:var(--g2)}.wb[data-on="au"]{--c:var(--g3)}.wb[data-on="b2"]{--c:var(--g4)}.wb[data-on="rs"]{--c:var(--g5)}
+.wb[data-on="bk"] .wb-orb{--ox:52cqw;--oy:30cqh}
+.wb[data-on="au"] .wb-orb{--ox:48cqw;--oy:34cqh}
+.wb[data-on="b2"] .wb-orb{--ox:54cqw;--oy:32cqh}
+.wb[data-on="rs"] .wb-orb{--ox:50cqw;--oy:30cqh}
+.wb-wash{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(250,247,244,0) 64%,rgba(250,247,244,.82) 82%,var(--cream) 94%);z-index:5}
+
+/* surfaces: one at a time; the javascript measures each and scales it to sit centred above the headline */
+:where(.wb) .sf{--fit:1;position:absolute;left:0;top:0;width:var(--w);transform:translateY(1.2em) rotate(var(--t)) scale(calc(var(--fit) * .94));transform-origin:0 0;transition:transform .9s var(--ease-out),opacity .5s ease,visibility 0s linear .5s;opacity:0;visibility:hidden;z-index:2;border-radius:1.1em;background:#fff;color:var(--ink);box-shadow:0 1.6em 3em -1.6em rgba(23,24,27,.55),0 0 0 1px rgba(23,24,27,.05);will-change:transform}
+:where(.wb) .sf.on{transform:scale(var(--fit));opacity:1;visibility:visible;z-index:4;transition:transform .9s var(--ease-out) .2s,opacity .5s ease .2s,visibility 0s}
+:where(.wb) .sf > .bob{animation:bob 6s ease-in-out infinite;display:grid;min-width:0}
+.wb.held *{animation-play-state:paused!important}
+
+/* badges */
+:where(.wb) .bd{position:absolute;width:3.2em;height:3.2em;border-radius:50%;background:var(--pc);color:#fff;display:grid;place-items:center;box-shadow:0 .6em 1.2em -.6em rgba(23,24,27,.5),0 0 0 .22em var(--cream);z-index:5;transition:transform .9s var(--ease-out)}
+
+/* shared: browser chrome, site nav, wordmark, buttons, a "done" toast */
+.wb-bar{display:flex;gap:.35em;align-items:center;padding:.55em .7em;background:var(--mist);border-radius:1.1em 1.1em 0 0}
+.wb-bar i{width:.6em;height:.6em;border-radius:50%;background:rgba(23,24,27,.18)}
+.wb-bar span{margin-left:.5em;flex:1;height:1.4em;border-radius:.4em;background:#fff;font-size:.72em;color:var(--slate);display:flex;align-items:center;padding-left:.7em;letter-spacing:0}
+.wb-nav{display:flex;align-items:center;gap:.9em;font-size:.78em}
+.wb-nav .wb-wm{font-family:var(--display);font-weight:600;font-size:1.35em;letter-spacing:var(--track-d);margin-right:auto;white-space:nowrap}
+.wb-nav i{font-style:normal;color:var(--slate)}
+.wb-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;padding:.55em 1em;border-radius:.5em;background:var(--ink);color:var(--cream);font-weight:500;font-size:.85em;white-space:nowrap;position:relative;overflow:hidden;isolation:isolate}
+.wb-btn .fill{position:absolute;inset:0;background:var(--pc);transform:scaleX(0);transform-origin:0 50%;z-index:-1}
+.wb-toast{position:absolute;left:50%;transform:translate(-50%,.6em);display:inline-flex;align-items:center;gap:.45em;background:var(--ink);color:var(--cream);font-size:.8em;font-weight:500;padding:.5em .9em .5em .6em;border-radius:999px;white-space:nowrap;opacity:0;z-index:6;box-shadow:0 .8em 1.6em -.8em rgba(23,24,27,.6)}
+.wb-toast i{width:1.3em;height:1.3em;border-radius:50%;background:var(--ok);display:grid;place-items:center}
+.wb-toast svg{width:60%;height:60%}
+.wb-cur{position:absolute;width:1.4em;height:1.4em;z-index:7;pointer-events:none;opacity:0;filter:drop-shadow(0 .2em .3em rgba(23,24,27,.35))}
+.wb-cur svg{width:100%;height:100%}
+
+/* 1 · e-commerce: la motte · add to cart, the cart counts, the toast confirms */
+.sf-ec{--pc:var(--g1);--w:68cqw;--t:-2deg}
+.sf-ec .bd{right:-1.1em;top:-1.1em}
+.sf-ec .bob{gap:0}
+.ec-page{padding:.9em 1em 1.1em;display:grid;gap:.9em;position:relative}
+.ec-cart{position:relative;width:1.6em;height:1.6em}
+.ec-cart svg{width:100%;height:100%}
+.ec-cart b{position:absolute;right:-.5em;top:-.5em;min-width:1.3em;height:1.3em;border-radius:999px;background:var(--pc);color:#fff;font-size:.7em;display:grid;place-items:center;font-weight:600;padding:0 .3em}
+.ec-cart b::after{content:"0"}
+.sf-ec.on .ec-cart b::after{animation:cartCount 4s steps(1,end) .2s both}
+@keyframes cartCount{0%{content:"0"}42%{content:"1"}100%{content:"1"}}
+.sf-ec.on .ec-cart b{animation:wbPop .5s cubic-bezier(.2,1.6,.4,1) 1.9s both}
+@keyframes wbPop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
+.ec-prod{display:grid;grid-template-columns:1fr 1.1fr;gap:1em;align-items:center}
+.ec-prod .pic{aspect-ratio:4/5;border-radius:.6em;background-image:url(assets/clients/la-motte.webp);background-position:50% 62%}
+.ec-info{display:grid;gap:.5em}
+.ec-info small{font-size:.72em;color:var(--slate);letter-spacing:.06em;text-transform:uppercase}
+.ec-info b{font-family:var(--display);font-weight:600;font-size:1.5em;line-height:.95;letter-spacing:var(--track-d)}
+.ec-info em{font-style:normal;font-weight:500;font-size:1.05em}
+.ec-row{display:flex;align-items:center;gap:.5em;margin-top:.2em}
+.ec-qty{display:inline-flex;align-items:center;gap:.7em;padding:.45em .7em;border-radius:.5em;box-shadow:inset 0 0 0 1px var(--line);font-size:.85em}
+.sf-ec.on .wb-btn .fill{animation:rlBar .35s ease 1.5s both}
+.sf-ec .wb-btn i{font-style:normal}
+.sf-ec .wb-btn i::after{content:"add to cart"}
+.sf-ec.on .wb-btn i::after{animation:ecTxt 4s steps(1,end) .2s both}
+@keyframes ecTxt{0%{content:"add to cart"}45%{content:"added"}100%{content:"added"}}
+.sf-ec .wb-toast{bottom:-1.1em}
+.sf-ec.on .wb-toast{animation:toastIn 2.4s ease 2s both}
+@keyframes toastIn{0%{opacity:0;transform:translate(-50%,.6em)}15%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-.4em)}}
+.sf-ec .wb-cur{left:72%;top:72%}
+.sf-ec.on .wb-cur{animation:curEc 2.2s ease-in-out .3s both}
+@keyframes curEc{0%{opacity:0;transform:translate(3em,3em)}30%{opacity:1;transform:translate(.6em,.4em)}52%{transform:translate(.6em,.4em) scale(.85)}60%{transform:translate(.6em,.4em) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(1.2em,1.4em)}}
+.ec-stat{position:absolute;right:-.8em;bottom:1.6em;background:#fff;border-radius:.7em;padding:.5em .8em;box-shadow:0 .9em 1.8em -.9em rgba(23,24,27,.5),inset 0 0 0 1px var(--line);display:grid;line-height:1.1;opacity:0;transform:translateY(.5em);z-index:6}
+.ec-stat b{font-family:var(--display);font-weight:600;font-size:1.5em;letter-spacing:var(--track-d)}
+.ec-stat small{font-size:.66em;color:var(--slate)}
+.sf-ec.on .ec-stat{animation:land .5s var(--ease-out) 2.8s both}
+
+/* 2 · booking: serene safari lodges · dates, guests, book now, booked */
+.sf-bk{--pc:var(--g2);--w:38cqw;--t:2deg;background:var(--ink);border-radius:2.2em;padding:.4em;box-shadow:0 1.6em 3em -1.6em rgba(23,24,27,.7),inset 0 0 0 1.5px rgba(250,247,244,.14)}
+.sf-bk .bd{left:-1em;top:2.6em}
+.sf-bk .bob{aspect-ratio:9/17.5;border-radius:1.9em;overflow:hidden;background:#fff;display:flex;flex-direction:column;font-size:.9em;position:relative}
+.bk-hero{flex:0 0 46%;background-image:url(assets/clients/serene.webp);background-size:cover;background-position:50% 45%;position:relative;color:var(--cream);display:flex;flex-direction:column;justify-content:flex-end;padding:.9em}
+.bk-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,24,27,.35),transparent 40%,rgba(23,24,27,.7))}
+.bk-hero .wb-wm{position:relative;font-family:var(--display);font-weight:600;font-size:1.3em;line-height:.95;letter-spacing:var(--track-d)}
+.bk-hero small{position:relative;font-size:.74em;opacity:.85}
+.bk-form{padding:.9em .9em 1em;display:grid;gap:.5em;flex:1}
+.bk-form label{display:grid;gap:.15em;font-size:.68em;color:var(--slate)}
+.bk-form label b{font-size:1.2em;color:var(--ink);font-weight:500;padding:.45em .6em;border-radius:.4em;background:var(--mist)}
+.bk-two{display:grid;grid-template-columns:1fr 1fr;gap:.5em}
+.bk-form .wb-btn{margin-top:auto;justify-content:center;padding:.7em}
+.sf-bk .wb-btn i{font-style:normal}
+.sf-bk .wb-btn i::after{content:"book now"}
+.sf-bk.on .wb-btn i::after{animation:bkTxt 4s steps(1,end) .2s both}
+@keyframes bkTxt{0%{content:"book now"}38%{content:"booking…"}62%{content:"booked"}100%{content:"booked"}}
+.sf-bk.on .wb-btn .fill{animation:rlBar 1s linear 1.7s both}
+.sf-bk .wb-toast{bottom:3.4em}
+.sf-bk.on .wb-toast{animation:toastIn 2.2s ease 2.7s both}
+.sf-bk .wb-cur{left:50%;top:82%}
+.sf-bk.on .wb-cur{animation:curEc 2.2s ease-in-out .3s both}
+
+/* 3 · dealership: bmw montana · the range, then a test drive is booked */
+.sf-au{--pc:var(--g3);--w:72cqw;--t:-2deg}
+.sf-au .bd{right:-1.1em;top:-1.1em}
+.sf-au .bob{gap:0}
+.au-page{padding:.8em 1em 1em;display:grid;gap:.7em;position:relative}
+.au-hero{aspect-ratio:2.34;border-radius:.6em;background-image:url(assets/clients/bmw-montana-hero.webp);background-size:cover;background-position:50% 50%;color:var(--cream);display:flex;align-items:flex-end;padding:.8em;position:relative}
+.au-hero::before{display:none}
+.au-hero b{position:relative;font-family:var(--display);font-weight:600;font-size:1.5em;line-height:.95;letter-spacing:var(--track-d);max-width:12ch}
+.au-cars{display:grid;grid-template-columns:repeat(3,1fr);gap:.6em}
+.au-car{border-radius:.6em;box-shadow:inset 0 0 0 1px var(--line);padding:.55em;display:grid;gap:.3em;opacity:0;transform:translateY(.4em)}
+.sf-au.on .au-car{animation:land .45s var(--ease-out) both}
+.sf-au.on .au-car:nth-child(1){animation-delay:.4s}.sf-au.on .au-car:nth-child(2){animation-delay:.6s}.sf-au.on .au-car:nth-child(3){animation-delay:.8s}
+.au-car i{display:block;aspect-ratio:16/9;border-radius:.4em;background:#fff center/contain no-repeat;position:relative;overflow:hidden}
+.au-car.c1 i{background-image:url(assets/clients/1-series.webp)}.au-car.c3 i{background-image:url(assets/clients/3-series.webp)}.au-car.cx i{background-image:url(assets/clients/ix1.webp)}
+.au-car b{font-size:.8em;font-weight:600}
+.au-car small{font-size:.68em;color:var(--slate)}
+.au-car em{font-style:normal;font-size:.7em;color:var(--pc);font-weight:500}
+.au-cta{display:flex;align-items:center;justify-content:space-between;gap:.6em;font-size:.8em;color:var(--slate)}
+.au-drawer{position:absolute;left:1em;right:1em;bottom:1em;background:#fff;border-radius:.8em;box-shadow:0 1.2em 2.4em -1em rgba(23,24,27,.45),inset 0 0 0 1px var(--line);padding:.8em .9em;display:grid;gap:.45em;opacity:0;transform:translateY(1.2em);z-index:6}
+.sf-au.on .au-drawer{animation:land .6s var(--ease-out) 2s both}
+.au-drawer b{font-weight:600;font-size:.9em}
+.au-drawer > i{display:block;height:1.9em;border-radius:.4em;background:var(--mist);font-style:normal;font-size:.76em;line-height:2.5em;padding-left:.8em;color:var(--slate)}
+.au-drawer > i b{font-size:1em;color:var(--ink);font-weight:500}
+.au-drawer .wb-btn{justify-content:center}
+.sf-au .wb-btn i::after{content:"book a test drive"}
+.sf-au .au-drawer .wb-btn i::after{content:"request sent"}
+.sf-au .wb-cur{left:62%;top:88%}
+.sf-au.on .wb-cur{animation:curEc 2.4s ease-in-out .5s both}
+
+/* 4 · b2b: crane certifications · a quote request, field by field */
+.sf-b2{--pc:var(--g4);--w:66cqw;--t:2deg}
+.sf-b2 .bd{left:-1.1em;top:-1.1em}
+.sf-b2 .bob{gap:0}
+.b2-page{padding:.9em 1em 1em;display:grid;grid-template-columns:1.1fr 1fr;gap:1em;align-items:start}
+.b2-copy{display:grid;gap:.6em;padding-top:.3em}
+.b2-copy b{font-family:var(--display);font-weight:600;font-size:1.7em;line-height:.92;letter-spacing:var(--track-d)}
+.b2-copy p{font-size:.78em;color:var(--slate);line-height:1.4}
+.b2-copy ul{list-style:none;margin:0;padding:0;display:grid;gap:.35em;font-size:.76em}
+.b2-copy li{display:flex;align-items:center;gap:.45em}
+.b2-copy li::before{content:"";width:1em;height:1em;border-radius:50%;background:var(--pc);flex:none;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12' fill='%23000'/%3E%3Cpath d='M7 12.5l3 3 7-7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12' fill='%23000'/%3E%3Cpath d='M7 12.5l3 3 7-7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.b2-form{background:var(--mist);border-radius:.8em;padding:.8em;display:grid;gap:.45em;position:relative}
+.b2-form b{font-size:.85em;font-weight:600}
+.b2-fld{display:grid;align-content:center;height:2.3em;border-radius:.4em;background:#fff;padding:0 .7em;font-style:normal}
+.b2-fld small{font-size:.66em;color:var(--slate);line-height:1}
+.b2-fld em{font-style:normal;font-size:.78em;line-height:1;opacity:0;transform:translateY(.3em)}
+.b2-fld.f1{--d:.6s}.b2-fld.f2{--d:1.3s}.b2-fld.f3{--d:2s}
+.sf-b2.on .b2-fld em{animation:land .4s var(--ease-out) var(--d) both}
+.sf-b2.on .b2-fld small{animation:wbShrink .3s ease var(--d) both}
+@keyframes wbShrink{to{font-size:.56em}}
+.b2-form .wb-btn{justify-content:center;margin-top:.2em}
+.sf-b2 .wb-btn i::after{content:"request a quote"}
+.sf-b2.on .wb-btn i::after{animation:b2Txt 4s steps(1,end) .2s both}
+@keyframes b2Txt{0%{content:"request a quote"}72%{content:"sent"}100%{content:"sent"}}
+.sf-b2.on .wb-btn .fill{animation:rlBar .35s ease 2.9s both}
+.sf-b2 .wb-cur{left:78%;top:86%}
+.sf-b2.on .wb-cur{animation:curEc 2.2s ease-in-out 1.8s both}
+
+/* 5 · responsive: umoya · one design on three screens */
+.sf-rs{--pc:var(--g5);--w:76cqw;--t:0deg;background:transparent;box-shadow:none;border-radius:0}
+.sf-rs .bob{display:grid;grid-template-columns:1fr auto auto;align-items:end;gap:1.2em;padding:.6em .4em 0}
+.rs-dev{background:var(--ink);border-radius:.9em;padding:.4em;box-shadow:0 1.4em 2.6em -1.6em rgba(23,24,27,.6),inset 0 0 0 1.5px rgba(250,247,244,.14);opacity:0;transform:translateY(.6em)}
+.sf-rs.on .rs-dev{animation:land .6s var(--ease-out) both}
+.sf-rs.on .rs-dev:nth-child(1){animation-delay:.3s}.sf-rs.on .rs-dev:nth-child(2){animation-delay:.9s}.sf-rs.on .rs-dev:nth-child(3){animation-delay:1.5s}
+.rs-scr{background:#fff;border-radius:.6em;overflow:hidden;display:grid;gap:.45em;padding:.6em}
+.rs-dev.lap .rs-scr{aspect-ratio:16/10}
+.rs-dev.tab{width:9em;border-radius:1.1em}.rs-dev.tab .rs-scr{aspect-ratio:3/4;border-radius:.8em}
+.rs-dev.ph{width:5.2em;border-radius:1.4em}.rs-dev.ph .rs-scr{aspect-ratio:9/17;border-radius:1.1em;padding:.5em;gap:.35em}
+.rs-scr .wb-nav{font-size:.6em}
+.rs-dev.ph .wb-nav i{display:none}
+.rs-hero{border-radius:.4em;background-image:url(assets/clients/umoya.webp);background-size:cover;background-position:center;aspect-ratio:16/7;position:relative;display:flex;align-items:flex-end;padding:.5em;color:var(--cream)}
+.rs-dev.tab .rs-hero{aspect-ratio:4/3}.rs-dev.ph .rs-hero{aspect-ratio:3/4}
+.rs-hero::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,transparent 40%,rgba(23,24,27,.7))}
+.rs-hero b{position:relative;font-family:var(--display);font-weight:600;font-size:.95em;line-height:.95;letter-spacing:var(--track-d)}
+.rs-dev.lap .rs-hero b{font-size:1.2em}
+.rs-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:.4em}
+.rs-dev.tab .rs-cols{grid-template-columns:1fr 1fr}.rs-dev.ph .rs-cols{grid-template-columns:1fr}
+.rs-cols i{display:block;height:1.6em;border-radius:.3em;background:var(--mist)}
+.rs-dev.ph .rs-cols i:nth-child(n+2){display:none}
+.rs-lab{position:absolute;left:0;right:0;bottom:-1.6em;text-align:center;font-size:.7em;color:var(--slate);white-space:nowrap}
+.rs-dev{position:relative}
+
+/* headline: rotating phrase over "with web design" */
+.wb-head{position:absolute;left:6cqw;bottom:max(14px,7cqh);right:6cqw;margin:0;z-index:6;font-family:var(--display);font-weight:600;font-size:min(9.6cqw,13.5cqh);line-height:.98;letter-spacing:var(--track-d);color:var(--ink)}
+.wb-rot{position:relative;display:block;height:1.12em;overflow:visible;font-size:.65em;margin-bottom:.12em}
+.wb-rot span{position:absolute;left:0;top:0;white-space:nowrap;transform:translateY(.45em);opacity:0;transition:transform .9s var(--ease-out),opacity .6s ease}
+.wb-rot span.on{transform:none;opacity:1;transition-delay:.12s}
+.wb-rot span.out{transform:translateY(-.45em);opacity:0}
+.wb-fix{display:flex;align-items:baseline;gap:.22em;white-space:nowrap;margin-top:-.46em}
+.wb-with{font-size:.62em}
+.wb-fix .grad{font-size:1.18em;line-height:1.05;padding-bottom:.08em;margin-bottom:0}
+.wb-pause{z-index:7}
+
+@container (max-height:360px){
+  .wb{font-size:max(7px,1.7cqmin)}
+  .sf-ec{--w:64cqw}.sf-bk{--w:34cqw}.sf-au{--w:66cqw}.sf-b2{--w:62cqw}.sf-rs{--w:70cqw}
+  .wb-wash{background:linear-gradient(180deg,rgba(250,247,244,0) 40%,rgba(250,247,244,.9) 70%,var(--cream) 88%)}
+  .wb-head{font-size:min(10cqw,14cqh)}
+  .wb-orb{width:80cqh}
+}
+@container (max-aspect-ratio:9/10) and (min-height:361px){
+  .wb{font-size:2.15cqw}
+  .sf-ec{--w:88cqw}.sf-bk{--w:52cqw}.sf-au{--w:90cqw}.sf-b2{--w:88cqw}.sf-rs{--w:92cqw}
+  .wb-head{font-size:11cqw}
+}
+@media (prefers-reduced-motion:reduce){
+  .sf,.wb-orb,.wb-rot span,.bd{transition:none}
+  .wb *{animation:none!important}
+  .wb-cur,.wb-toast{display:none}
+  .au-car,.au-drawer,.rs-dev,.ec-stat,.b2-fld em{opacity:1;transform:none}
+}
+
+/* microsites card: the one-page funnel on ink — the same phone in the same place, five screens taking turns (an ad is tapped and becomes the site, the page loads with a speed ring, one scroll reaches the offer, the form sends, the plan with its price tag), a note floating beside each. ported from Sean's "Microsites Card" preview artifact, 28 Oct 2026; renamed to avoid the page's own classes: .ph/.scr/.site/.nav/.wm/.hero/.pbtn/.sec/.skel/.tap/.note/.fld/.ring → .mc-*, keyframes spin/shrink/tap/bar → mcSpin/mcShrink/mcTap/rlBar */
+.mc{position:absolute;inset:0;z-index:1;container-type:size;overflow:hidden;background:var(--ink);color:var(--cream);font-size:max(7px,1.5cqmin);line-height:1.3;--ig:#E1306C;--c:var(--g1)}
+.mc-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(250,247,244,.14) 1px,transparent 1.2px);background-size:22px 22px;-webkit-mask-image:radial-gradient(70% 60% at 50% 35%,#000 20%,transparent 100%);mask-image:radial-gradient(70% 60% at 50% 35%,#000 20%,transparent 100%)}
+.mc-orb{position:absolute;left:0;top:0;width:min(72cqw,72cqh);aspect-ratio:1;border-radius:50%;background:var(--c);opacity:.22;filter:blur(1.4em);transform:translate(calc(var(--ox) - 50%),calc(var(--oy) - 50%));transition:transform 1.3s var(--ease-out),background-color .9s ease;--ox:50cqw;--oy:32cqh}
+.mc[data-on="ld"]{--c:var(--g2)}.mc[data-on="sc"]{--c:var(--g3)}.mc[data-on="lf"]{--c:var(--g4)}.mc[data-on="pl"]{--c:var(--g5)}
+.mc[data-on="ld"] .mc-orb{--ox:46cqw;--oy:30cqh}.mc[data-on="sc"] .mc-orb{--ox:54cqw;--oy:34cqh}.mc[data-on="lf"] .mc-orb{--ox:48cqw;--oy:30cqh}.mc[data-on="pl"] .mc-orb{--ox:52cqw;--oy:32cqh}
+.mc-wash{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(23,24,27,0) 64%,rgba(23,24,27,.82) 82%,var(--ink) 94%);z-index:5}
+
+/* surfaces: every step is the same phone in the same place, so only the screen changes; the javascript scales the phone to the band above the headline */
+.mc .sf{background:none;box-shadow:none;border-radius:0}   /* the phone is the surface here, not a card (fixes the white corners peeking behind the frame, 28 Oct) */
+:where(.mc) .sf{--fit:1;position:absolute;left:0;top:0;width:var(--w);transform:scale(var(--fit));transform-origin:0 0;transition:opacity .45s ease,visibility 0s linear .45s;opacity:0;visibility:hidden;z-index:2;will-change:opacity}
+:where(.mc) .sf.on{opacity:1;visibility:visible;z-index:4;transition:opacity .45s ease .15s,visibility 0s}
+.mc-ph{background:var(--ink);border-radius:2.4em;padding:.45em;box-shadow:0 1.8em 3.2em -1.6em rgba(0,0,0,.9),inset 0 0 0 1.5px rgba(250,247,244,.16);position:relative}
+.mc-ph::before{content:"";position:absolute;left:50%;top:.95em;width:28%;height:1.1em;border-radius:1em;background:var(--ink);transform:translateX(-50%);z-index:3}
+.mc-scr{aspect-ratio:9/19;border-radius:2em;overflow:hidden;background:#fff;color:var(--ink);position:relative;font-size:.95em}
+.mc-site{position:absolute;inset:0;display:flex;flex-direction:column}
+.mc-site .mc-nav{display:flex;align-items:center;justify-content:space-between;padding:2.2em .9em .5em;font-size:.72em}
+.mc-site .mc-wm{font-family:var(--display);font-weight:600;font-size:1.5em;letter-spacing:var(--track-d);white-space:nowrap}
+.mc-site .mc-nav i{width:1.6em;height:1em;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);display:block}
+.mc-hero{position:relative;background-size:cover;background-position:center;color:var(--cream);display:flex;flex-direction:column;justify-content:flex-end;padding:.9em;gap:.5em;flex:0 0 46%}
+.mc-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,24,27,.15),transparent 35%,rgba(23,24,27,.75))}
+.mc-hero b{position:relative;font-family:var(--display);font-weight:600;font-size:1.5em;line-height:.92;letter-spacing:var(--track-d);text-wrap:balance}
+.mc-hero small{position:relative;font-size:.74em;opacity:.9}
+.mc-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;padding:.6em 1em;border-radius:.5em;background:var(--ink);color:var(--cream);font-weight:500;font-size:.82em;white-space:nowrap;position:relative;overflow:hidden;isolation:isolate}
+.mc-hero .mc-btn{position:relative;align-self:flex-start;background:var(--cream);color:var(--ink)}
+.mc-btn .fill{position:absolute;inset:0;background:var(--pc);transform:scaleX(0);transform-origin:0 50%;z-index:-1}
+.mc-sec{padding:.9em;display:grid;gap:.5em}
+.mc-sec b{font-family:var(--display);font-weight:600;font-size:1.2em;line-height:.95;letter-spacing:var(--track-d)}
+.mc-sec p{font-size:.74em;color:var(--slate);line-height:1.4}
+.mc-skel{display:block;height:.55em;border-radius:.3em;background:var(--mist)}
+.mc-skel.s{width:62%}
+/* a tap: a finger-sized ring that pulses where the thumb lands */
+.mc-tap{position:absolute;width:2.4em;height:2.4em;border-radius:50%;background:rgba(23,24,27,.18);box-shadow:inset 0 0 0 2px rgba(23,24,27,.35);transform:translate(-50%,-50%) scale(.4);opacity:0;z-index:6;pointer-events:none}
+@keyframes mcTap{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}25%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.6)}}
+.mc.held *{animation-play-state:paused!important}
+/* floating notes beside the phone */
+.mc-note{position:absolute;background:#fff;color:var(--ink);border-radius:.8em;padding:.6em .8em;box-shadow:0 1em 2em -1em rgba(0,0,0,.8);display:grid;gap:.15em;line-height:1.15;opacity:0;transform:translateY(.5em);z-index:6;white-space:nowrap}
+.mc-note b{font-family:var(--display);font-weight:600;font-size:1.5em;letter-spacing:var(--track-d)}
+.mc-note small{font-size:.68em;color:var(--slate)}
+.mc-note i{position:absolute;left:-1em;top:-1em;width:2.2em;height:2.2em;border-radius:50%;background:var(--pc);color:#fff;display:grid;place-items:center;box-shadow:0 0 0 .2em var(--ink)}
+.mc-note i svg{width:52%;height:52%}
+.sf.on .mc-note{animation:land .5s var(--ease-out) var(--d,2.4s) both}
+
+/* 1 · the tap: an instagram ad for la motte, tapped, becomes the microsite */
+.sf-ad{--pc:var(--g1);--w:42cqw}
+.scr-ad{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;padding:2.2em .8em .9em;gap:.55em;font-size:.8em;transition:transform .7s cubic-bezier(.65,0,.2,1)}
+.sf-ad.on .scr-ad{transform:translateY(-100%);transition-delay:1.7s}
+.ad-hd{display:flex;align-items:center;gap:.5em}
+.ad-hd i{width:1.8em;height:1.8em;border-radius:50%;background:var(--ig)}
+.ad-hd span{display:grid;line-height:1.15}
+.ad-hd b{font-weight:600;font-size:.95em}
+.ad-hd small{font-size:.78em;color:var(--slate)}
+.ad-pic{flex:1;border-radius:.5em;background:url(assets/clients/la-motte.webp) center 60%/cover}
+.ad-cta{display:flex;align-items:center;justify-content:space-between;padding:.55em .7em;border-radius:.4em;background:var(--mist);font-weight:500;font-size:.92em}
+.ad-cta i{width:.5em;height:.5em;border-right:2px solid currentColor;border-top:2px solid currentColor;transform:rotate(45deg)}
+.ad-acts{display:flex;gap:.6em;font-size:1.1em}
+.ad-acts svg{width:1.3em;height:1.3em}
+.sf-ad .mc-site{transform:translateY(12%);opacity:0;transition:transform .7s var(--ease-out) 1.75s,opacity .4s ease 1.75s}
+.sf-ad.on .mc-site{transform:none;opacity:1}
+.sf-ad .mc-hero{background-image:url(assets/clients/la-motte.webp);background-position:50% 62%;flex:0 0 58%}
+.sf-ad .mc-tap{left:50%;top:68%}
+.sf-ad.on .mc-tap{animation:mcTap .8s ease-out 1.1s both}
+.sf-ad .mc-note{right:-9.6em;top:30%;--d:2.8s}
+
+/* 2 · the load: leopard's leap, up in 0.6s, with the speed ring beside it */
+.sf-ld{--pc:var(--g2);--w:42cqw}
+.sf-ld .mc-hero{background-image:url(assets/clients/leopards-leap.webp);background-position:50% 60%}
+.ld-cover{position:absolute;inset:0;background:#fff;z-index:2;display:grid;place-items:center}
+.ld-cover i{width:2.2em;height:2.2em;border-radius:50%;border:.25em solid var(--mist);border-top-color:var(--pc);animation:mcSpin .8s linear infinite}
+@keyframes mcSpin{to{transform:rotate(360deg)}}
+.sf-ld.on .ld-cover{animation:coverOff .4s ease .9s both}
+@keyframes coverOff{to{opacity:0;visibility:hidden}}
+.sf-ld .mc-site > *{opacity:0;transform:translateY(.6em)}
+.sf-ld.on .mc-site > *{animation:land .5s var(--ease-out) both}
+.sf-ld.on .mc-site > :nth-child(1){animation-delay:1s}.sf-ld.on .mc-site > :nth-child(2){animation-delay:1.1s}.sf-ld.on .mc-site > :nth-child(3){animation-delay:1.25s}
+.sf-ld .mc-note{left:-11em;top:26%;--d:1.6s;padding:.7em .9em .7em 3.4em}
+.mc-ring{position:absolute;left:.7em;top:50%;width:2.4em;height:2.4em;transform:translateY(-50%);border-radius:50%;background:conic-gradient(var(--pc) calc(var(--p) * 1%),var(--mist) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - .4em),#000 calc(100% - .36em));mask:radial-gradient(farthest-side,transparent calc(100% - .4em),#000 calc(100% - .36em));--p:0}
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+.sf-ld.on .mc-ring{animation:ringUp 1.2s var(--ease-out) 1.8s both}
+@keyframes ringUp{to{--p:98}}
+.sf-ld .mc-note b::after{content:"0.6s"}
+
+/* 3 · the scroll: bmw, one thumb-scroll from hero to the offer */
+.sf-sc{--pc:var(--g3);--w:42cqw}
+.sf-sc .mc-site{height:auto;bottom:auto}
+.sf-sc.on .mc-site{animation:scrollUp 2.2s cubic-bezier(.65,0,.25,1) 1.2s both}
+@keyframes scrollUp{to{transform:translateY(-52%)}}
+.sf-sc .mc-hero{background-image:url(assets/clients/bmw-montana-mobile.webp);background-position:50% 50%;flex:0 0 auto;aspect-ratio:3/4}
+.sf-sc .mc-hero::before{display:none}
+.sc-offer{padding:.9em;display:grid;gap:.5em;background:var(--mist);margin:0 .6em;border-radius:.7em}
+.sc-offer b{font-family:var(--display);font-weight:600;font-size:1.2em;line-height:.95;letter-spacing:var(--track-d)}
+.sc-offer small{font-size:.74em;color:var(--slate)}
+.sc-car{aspect-ratio:16/9;border-radius:.5em;background:#fff url(assets/clients/m3.webp) center/contain no-repeat}
+.sc-row{display:flex;justify-content:space-between;align-items:center;font-size:.78em}
+.sc-row em{font-style:normal;font-weight:600}
+.sf-sc .mc-tap{left:50%;top:70%}
+.sf-sc.on .mc-tap{animation:mcTap .8s ease-out .7s both}
+.sf-sc .mc-note{right:-10em;top:34%;--d:3s}
+
+/* 4 · the form: mini, three fields fill, then it's sent */
+.sf-mlf{--pc:var(--g4);--w:42cqw}
+.sf-mlf .mc-hero{background:#fff url(assets/clients/m3.webp) center 70%/88% no-repeat;flex:0 0 40%;color:var(--ink);padding-bottom:.4em}
+.sf-mlf .mc-hero::before{display:none}
+.lf-form{padding:.8em .9em;display:grid;gap:.45em}
+.lf-form b{font-family:var(--display);font-weight:600;font-size:1.15em;line-height:.95;letter-spacing:var(--track-d)}
+.mc-fld{display:grid;align-content:center;height:2.3em;border-radius:.4em;background:var(--mist);padding:0 .7em;font-style:normal}
+.mc-fld small{font-size:.66em;color:var(--slate);line-height:1}
+.mc-fld em{font-style:normal;font-size:.78em;line-height:1;opacity:0;transform:translateY(.3em)}
+.mc-fld.f1{--d:.5s}.mc-fld.f2{--d:1.1s}.mc-fld.f3{--d:1.7s}
+.sf-mlf.on .mc-fld em{animation:land .4s var(--ease-out) var(--d) both}
+.sf-mlf.on .mc-fld small{animation:mcShrink .3s ease var(--d) both}
+@keyframes mcShrink{to{font-size:.56em}}
+.lf-form .mc-btn{justify-content:center}
+.lf-foot{font-size:.64em;color:var(--slate);text-align:center}
+.lf-form .mc-btn i{font-style:normal}
+.lf-form .mc-btn i::after{content:"book a test drive"}
+.sf-mlf.on .mc-btn i::after{animation:lfTxt 4s steps(1,end) .2s both}
+@keyframes lfTxt{0%{content:"book a test drive"}62%{content:"sent"}100%{content:"sent"}}
+.sf-mlf.on .mc-btn .fill{animation:rlBar .35s ease 2.5s both}
+.sf-mlf .mc-tap{left:50%;top:84%}
+.sf-mlf.on .mc-tap{animation:mcTap .8s ease-out 2.2s both}
+.sf-mlf .mc-note{left:-10.4em;top:36%;--d:3s}
+
+/* 5 · the plan: umoya, with the price tag */
+.sf-pl{--pc:var(--g5);--w:42cqw}
+.sf-pl .mc-hero{background-image:url(assets/clients/umoya-mobile.webp);background-position:50% 50%;flex:0 0 60%}
+.sf-pl .mc-site .mc-sec{flex:1;align-content:start}
+.sf-pl .mc-hero::before{display:none}
+.pl-btn{justify-self:start;margin-top:.1em}
+.pl-chips{display:flex;flex-wrap:wrap;gap:.35em;padding:0 .9em 1.2em;font-size:.68em}
+.pl-chips i{font-style:normal;padding:.3em .7em;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);color:var(--slate);opacity:0;transform:translateY(.3em)}
+.sf-pl.on .pl-chips i{animation:land .4s ease both}
+.sf-pl.on .pl-chips i:nth-child(1){animation-delay:.6s}.sf-pl.on .pl-chips i:nth-child(2){animation-delay:.8s}.sf-pl.on .pl-chips i:nth-child(3){animation-delay:1s}.sf-pl.on .pl-chips i:nth-child(4){animation-delay:1.2s}
+.sf-pl .mc-note{right:-11.6em;top:28%;--d:1.6s}
+.sf-pl .mc-note b{font-size:1.7em}
+.sf-pl .pl-tag{position:absolute;left:-7.6em;right:auto;top:58%;--d:2.4s}
+
+/* headline: rotating benefit over "with microsites" */
+.mc-head{position:absolute;left:6cqw;bottom:max(14px,7cqh);right:6cqw;margin:0;z-index:6;font-family:var(--display);font-weight:600;font-size:min(9.6cqw,13.5cqh);line-height:.98;letter-spacing:var(--track-d);color:var(--cream)}
+.mc-rot{position:relative;display:block;height:1.12em;overflow:visible;font-size:.65em;margin-bottom:.12em}
+.mc-rot span{position:absolute;left:0;top:0;white-space:nowrap;transform:translateY(.45em);opacity:0;transition:transform .9s var(--ease-out),opacity .6s ease}
+.mc-rot span.on{transform:none;opacity:1;transition-delay:.12s}
+.mc-rot span.out{transform:translateY(-.45em);opacity:0}
+.mc-fix{display:flex;align-items:baseline;gap:.22em;white-space:nowrap;margin-top:-.46em}
+.mc-with{font-size:.62em}
+.mc-fix .grad{font-size:1.18em;line-height:1.05;padding-bottom:.08em;margin-bottom:0}
+.mc-pause{z-index:7}
+
+@container (max-height:360px){
+  .mc{font-size:max(7px,1.7cqmin)}
+  .mc .sf{--w:36cqw}
+  .mc-wash{background:linear-gradient(180deg,rgba(23,24,27,0) 40%,rgba(23,24,27,.9) 70%,var(--ink) 88%)}
+  .mc-head{font-size:min(10cqw,14cqh)}
+  .mc-orb{width:80cqh}
+}
+@container (max-aspect-ratio:9/10) and (min-height:361px){
+  .mc{font-size:2.15cqw}
+  .mc .sf{--w:54cqw}
+  .mc-head{font-size:11cqw}
+}
+@media (prefers-reduced-motion:reduce){
+  .sf,.mc-orb,.mc-rot span{transition:none}
+  .mc *{animation:none!important}
+  .mc-tap,.mc-cur,.ld-cover{display:none}
+  .mc-note,.mc-fld em,.pl-chips i,.sf-ld .mc-site > *{opacity:1;transform:none}
+  .sf-ad .scr-ad{display:none}.sf-ad .mc-site{opacity:1;transform:none}
+  .mc-ring{--p:98}
+}
+
+/* automotive microsites card: the dealership's six jobs on cream — the same laptop in the same place, six screens taking turns (bmw stock grid, mini special with countdown, subaru test-drive form, hyundai finance calculator, mahindra trade-in, bmw motorrad ride with a whatsapp thread on a phone), a tag floating beside each. ported from Sean's "Automotive Microsites Card" (Downloads/ca-service-cards/automotive-microsites), 28 Oct 2026; renamed to avoid the page's own classes: .lap/.lid/.base/.scr/.site/.nav/.wm/.pbtn/.body/.h/.sub/.skel/.car/.chips/.fld/.cur/.tag/.ph/.bub/.sec → .am-*, keyframes shrink/curIn/pulse/pm/tick/bar → amShrink/amCurIn/amPulse/amPm/amTick/rlBar */
+.au{position:absolute;inset:0;z-index:1;container-type:size;overflow:hidden;background:var(--cream);color:var(--ink);font-size:max(7px,1.5cqmin);line-height:1.3;--ok:#1E9E5A;--wa:#25D366;--bmw:#1C69D4;--mini:#36C2B4;--subaru:#0F4C9F;--hyundai:#002C5F;--mahindra:#C8102E;--motorrad:#1C69D4;--c:var(--bmw)}
+/* a faint road: two lane lines that run off into the distance */
+.au-grid{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(23,24,27,.05) 1px,transparent 1px);background-size:8.333% 100%;-webkit-mask-image:radial-gradient(75% 65% at 55% 35%,#000 20%,transparent 100%);mask-image:radial-gradient(75% 65% at 55% 35%,#000 20%,transparent 100%)}
+.au-orb{position:absolute;left:0;top:0;width:min(72cqw,72cqh);aspect-ratio:1;border-radius:50%;background:var(--c);opacity:.16;filter:blur(1.4em);transform:translate(calc(var(--ox) - 50%),calc(var(--oy) - 50%));transition:transform 1.3s var(--ease-out),background-color .9s ease;--ox:50cqw;--oy:32cqh}
+.au[data-on="sp"]{--c:var(--mini)}.au[data-on="td"]{--c:var(--subaru)}.au[data-on="fi"]{--c:var(--hyundai)}.au[data-on="ti"]{--c:var(--mahindra)}.au[data-on="ri"]{--c:var(--motorrad)}
+.au[data-on="sp"] .au-orb{--ox:46cqw;--oy:30cqh}.au[data-on="td"] .au-orb{--ox:54cqw;--oy:34cqh}.au[data-on="fi"] .au-orb{--ox:48cqw;--oy:30cqh}.au[data-on="ti"] .au-orb{--ox:52cqw;--oy:32cqh}.au[data-on="ri"] .au-orb{--ox:50cqw;--oy:30cqh}
+.au-wash{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(250,247,244,0) 64%,rgba(250,247,244,.82) 82%,var(--cream) 94%);z-index:5}
+
+/* surfaces: the same laptop in the same place every time; only the screen changes */
+.au .sf{background:none;box-shadow:none;border-radius:0;--fit:1;position:absolute;left:0;top:0;width:var(--w);transform:scale(var(--fit));transform-origin:0 0;transition:opacity .45s ease,visibility 0s linear .45s;opacity:0;visibility:hidden;z-index:2;will-change:opacity}
+.au .sf.on{opacity:1;visibility:visible;z-index:4;transition:opacity .45s ease .15s,visibility 0s}
+.am-lap{display:grid;justify-items:center;position:relative}
+.am-lid{width:100%;aspect-ratio:16/10;border-radius:1em 1em .35em .35em;background:var(--ink);padding:.55em .55em .7em;box-shadow:0 2em 3.6em -1.8em rgba(23,24,27,.7),inset 0 0 0 1.5px rgba(250,247,244,.12);position:relative}
+.am-lid::before{content:"";position:absolute;left:50%;top:.2em;width:.4em;height:.4em;border-radius:50%;background:rgba(250,247,244,.25);transform:translateX(-50%)}
+.am-base{width:112%;height:.9em;border-radius:0 0 .9em .9em;background:var(--mist);box-shadow:inset 0 -.25em 0 rgba(23,24,27,.12),0 1.4em 2em -1.4em rgba(23,24,27,.6)}
+.am-base::after{content:"";display:block;width:14%;height:.25em;margin:0 auto;border-radius:0 0 .3em .3em;background:rgba(23,24,27,.12)}
+.am-scr{height:100%;border-radius:.5em;overflow:hidden;background:#fff;color:var(--ink);position:relative;font-size:.78em}
+.am-site{position:absolute;inset:0;display:flex;flex-direction:column}
+.am-nav{display:flex;align-items:center;gap:1.2em;padding:.9em 1.2em;font-size:.82em;border-bottom:1px solid var(--line)}
+.am-nav .am-wm{font-family:var(--display);font-weight:600;font-size:1.5em;letter-spacing:var(--track-d);margin-right:auto;white-space:nowrap}
+.am-nav i{font-style:normal;color:var(--slate)}
+.am-nav .am-btn{padding:.45em .9em;font-size:.95em}
+.am-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;padding:.6em 1em;border-radius:.45em;background:var(--ink);color:var(--cream);font-weight:500;font-size:.85em;white-space:nowrap;position:relative;overflow:hidden;isolation:isolate}
+.am-btn .fill{position:absolute;inset:0;background:var(--pc);transform:scaleX(0);transform-origin:0 50%;z-index:-1}
+.am-btn i{font-style:normal}
+.am-body{flex:1;display:grid;gap:.9em;padding:1em 1.2em;min-height:0}
+.am-h{font-family:var(--display);font-weight:600;font-size:1.6em;line-height:.92;letter-spacing:var(--track-d);text-wrap:balance}
+.am-sub{font-size:.8em;color:var(--slate);line-height:1.4}
+.am-skel{display:block;height:.55em;border-radius:.3em;background:var(--mist)}
+.am-skel.s{width:60%}
+.am-car{background:#fff center/contain no-repeat;position:relative}
+.am-chips{display:flex;flex-wrap:wrap;gap:.35em;font-size:.72em}
+.am-chips i{font-style:normal;padding:.3em .7em;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);color:var(--slate)}
+.am-fld{display:grid;align-content:center;height:2.3em;border-radius:.4em;background:var(--mist);padding:0 .7em;font-style:normal}
+.am-fld small{font-size:.66em;color:var(--slate);line-height:1}
+.am-fld em{font-style:normal;font-size:.8em;line-height:1;opacity:0;transform:translateY(.3em)}
+.am-fld.f1{--d:.7s}.am-fld.f2{--d:1.3s}.am-fld.f3{--d:1.9s}
+.sf.on .am-fld em{animation:land .4s var(--ease-out) var(--d) both}
+.sf.on .am-fld small{animation:amShrink .3s ease var(--d) both}
+@keyframes amShrink{to{font-size:.56em}}
+.am-cur{position:absolute;width:1.6em;height:1.6em;z-index:7;pointer-events:none;opacity:0;filter:drop-shadow(0 .2em .3em rgba(23,24,27,.35))}
+@keyframes amCurIn{0%{opacity:0;transform:translate(3em,3em)}30%{opacity:1;transform:translate(.6em,.4em)}52%{transform:translate(.6em,.4em) scale(.85)}60%{transform:translate(.6em,.4em) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(1.2em,1.4em)}}
+.au.held *{animation-play-state:paused!important}
+/* brand badge on the lid's corner */
+.au .bd{position:absolute;right:-1.1em;top:-1.1em;width:3.2em;height:3.2em;border-radius:50%;background:var(--pc);color:#fff;display:grid;place-items:center;box-shadow:0 .6em 1.2em -.6em rgba(23,24,27,.5),0 0 0 .22em var(--cream);z-index:5}
+/* a floating tag beside the laptop */
+.am-tag{position:absolute;background:#fff;color:var(--ink);border-radius:.8em;padding:.6em .8em;box-shadow:0 1em 2em -1em rgba(23,24,27,.6);display:grid;gap:.15em;line-height:1.15;opacity:0;transform:translateY(.5em);z-index:6;white-space:nowrap}
+.am-tag b{font-family:var(--display);font-weight:600;font-size:1.35em;letter-spacing:var(--track-d)}
+.am-tag small{font-size:.68em;color:var(--slate)}
+.sf.on .am-tag{animation:land .5s var(--ease-out) var(--d,2.8s) both}
+
+/* 1 · stock · bmw: the range grid fills, then the page scrolls a notch */
+.sf-stk{--pc:var(--bmw);--w:82cqw}
+.sf-stk .am-site{height:auto;bottom:auto}
+.sf-stk.on .am-site{animation:nudge 1.6s cubic-bezier(.65,0,.25,1) 2.4s both}
+@keyframes nudge{to{transform:translateY(-30%)}}
+.st-hero{aspect-ratio:16/5;background:url(assets/clients/bmw-montana-hero.webp) center/cover;border-radius:.5em}
+.st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7em}
+.st-tile{border-radius:.6em;box-shadow:inset 0 0 0 1px var(--line);padding:.5em;display:grid;gap:.25em;opacity:0;transform:translateY(.5em)}
+.sf-stk.on .st-tile{animation:land .45s var(--ease-out) both}
+.sf-stk.on .st-tile:nth-child(1){animation-delay:.5s}.sf-stk.on .st-tile:nth-child(2){animation-delay:.7s}.sf-stk.on .st-tile:nth-child(3){animation-delay:.9s}.sf-stk.on .st-tile:nth-child(4){animation-delay:1.1s}
+.st-tile .am-car{aspect-ratio:16/9;border-radius:.4em}
+.st-tile b{font-weight:600;font-size:.85em}
+.st-tile small{font-size:.68em;color:var(--slate)}
+.st-tile em{font-style:normal;font-size:.7em;color:var(--pc);font-weight:500}
+.sf-stk .am-tag{right:-3em;bottom:-.4em;--d:1.6s}
+
+/* 2 · the special · mini: the creative, a countdown ticking, the claim button pulsing */
+.sf-sp{--pc:var(--mini);--w:82cqw}
+.sp-hero{aspect-ratio:1400/600;background:url(assets/clients/mini-special.webp) center/cover;border-radius:.5em;position:relative}
+.sp-row{display:flex;align-items:center;justify-content:space-between;gap:1em}
+.sp-badge{display:inline-flex;align-items:center;gap:.4em;font-size:.72em;font-weight:600;color:#fff;background:var(--ink);padding:.35em .8em;border-radius:999px}
+.sp-badge i{width:.55em;height:.55em;border-radius:50%;background:var(--pc)}
+.sp-cd{display:flex;gap:.4em;font-variant-numeric:tabular-nums}
+.sp-cd span{display:grid;justify-items:center;line-height:1;background:var(--mist);border-radius:.4em;padding:.4em .6em;min-width:3.2em}
+.sp-cd b{font-family:var(--display);font-weight:600;font-size:1.3em;letter-spacing:var(--track-d)}
+.sp-cd small{font-size:.58em;color:var(--slate)}
+.sp-cd .am-sec::after{content:"41"}
+.sf-sp.on .sp-cd .am-sec::after{animation:amTick 4s steps(1,end) .2s both}
+@keyframes amTick{0%{content:"41"}25%{content:"40"}50%{content:"39"}75%{content:"38"}100%{content:"37"}}
+.sf-sp.on .sp-row .am-btn{animation:amPulse 1.6s ease-in-out 1s infinite}
+@keyframes amPulse{0%,100%{box-shadow:0 0 0 0 rgba(54,194,180,.5)}50%{box-shadow:0 0 0 .6em rgba(54,194,180,0)}}
+.sf-sp .am-tag{left:-3em;bottom:-.4em;--d:1.8s}
+
+/* 3 · test drive · subaru: the vehicle page, the form fills, sent, and the lead is assigned */
+.sf-td{--pc:var(--subaru);--w:82cqw}
+.td-body{grid-template-columns:1.1fr 1fr;align-items:center}
+.td-car{aspect-ratio:4/3;background-image:url(assets/clients/subaru-forester.webp)}
+.td-side{display:grid;gap:.5em}
+.td-side .am-btn{justify-content:center}
+.sf-td .am-btn i::after{content:"book a test drive"}
+.sf-td.on .am-btn i::after{animation:tdTxt 4.4s steps(1,end) .2s both}
+@keyframes tdTxt{0%{content:"book a test drive"}60%{content:"sent"}100%{content:"sent"}}
+.sf-td.on .am-btn .fill{animation:rlBar .35s ease 2.6s both}
+.sf-td .am-cur{left:76%;top:70%}
+.sf-td.on .am-cur{animation:amCurIn 2.2s ease-in-out 1.2s both}
+.sf-td .am-tag{right:-3em;bottom:-.4em;--d:3.2s}
+.sf-td .am-tag i{display:inline-block;width:1.5em;height:1.5em;border-radius:50%;background:var(--pc);vertical-align:middle;margin-right:.4em}
+
+/* 4 · finance · hyundai: deposit slides, term picked, the monthly figure settles, apply */
+.sf-fi{--pc:var(--hyundai);--w:82cqw}
+.fi-body{grid-template-columns:1fr 1.1fr;align-items:center}
+.fi-car{aspect-ratio:4/3;background-color:var(--mist);border-radius:.5em;display:grid;place-items:center;color:var(--slate);font-size:.72em;text-align:center}
+.fi-calc{display:grid;gap:.55em;background:var(--mist);border-radius:.7em;padding:.9em}
+.fi-calc b.t{font-weight:600;font-size:.9em}
+.fi-lab{display:flex;justify-content:space-between;font-size:.7em;color:var(--slate)}
+.fi-lab em{font-style:normal;color:var(--ink);font-weight:500}
+.fi-sl{position:relative;height:.35em;border-radius:1em;background:rgba(23,24,27,.14)}
+.fi-sl i{position:absolute;left:0;top:0;bottom:0;width:22%;border-radius:1em;background:var(--pc)}
+.fi-sl b{position:absolute;left:22%;top:50%;width:1.2em;height:1.2em;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--pc),0 .3em .6em -.3em rgba(23,24,27,.6);transform:translate(-50%,-50%)}
+.sf-fi.on .fi-sl i{animation:slideW 1.2s var(--ease-out) .6s both}
+.sf-fi.on .fi-sl b{animation:slideX 1.2s var(--ease-out) .6s both}
+@keyframes slideW{to{width:48%}}
+@keyframes slideX{to{left:48%}}
+.fi-terms{display:flex;gap:.35em;font-size:.72em}
+.fi-terms i{font-style:normal;flex:1;text-align:center;padding:.35em 0;border-radius:.35em;background:#fff;color:var(--slate);box-shadow:inset 0 0 0 1px var(--line)}
+.sf-fi.on .fi-terms i:nth-child(3){animation:termOn .3s ease 1.9s both}
+@keyframes termOn{to{background:var(--pc);color:#fff;box-shadow:none}}
+.fi-pm{display:flex;align-items:baseline;justify-content:space-between}
+.fi-pm b{text-transform:none;font-family:var(--display);font-weight:600;font-size:1.7em;letter-spacing:var(--track-d);font-variant-numeric:tabular-nums}
+.fi-pm b::after{content:"R9 850"}
+.sf-fi.on .fi-pm b::after{animation:amPm 1.4s steps(1,end) .8s both}
+@keyframes amPm{0%{content:"R9 850"}25%{content:"R9 120"}50%{content:"R8 460"}75%{content:"R7 990"}100%{content:"R7 640"}}
+.fi-pm small{font-size:.68em;color:var(--slate)}
+.fi-calc .am-btn{justify-content:center}
+.sf-fi .am-btn i::after{content:"apply for finance"}
+.sf-fi.on .am-btn i::after{animation:fiTxt 4.4s steps(1,end) .2s both}
+@keyframes fiTxt{0%{content:"apply for finance"}68%{content:"application sent"}100%{content:"application sent"}}
+.sf-fi.on .am-btn .fill{animation:rlBar .35s ease 2.9s both}
+.sf-fi .am-cur{left:76%;top:80%}
+.sf-fi.on .am-cur{animation:amCurIn 2.2s ease-in-out 1.6s both}
+.sf-fi .am-tag{left:-3em;bottom:-.4em;--d:3.4s}
+
+/* 5 · trade-in · mahindra: the registration types in, the car fills, valuation requested */
+.sf-ti{--pc:var(--mahindra);--w:82cqw}
+.ti-body{grid-template-columns:1fr 1.1fr;align-items:center}
+.ti-car{aspect-ratio:4/3;background-color:var(--mist);border-radius:.5em;display:grid;place-items:center;color:var(--slate);font-size:.72em;text-align:center}
+.ti-form{display:grid;gap:.5em;background:var(--mist);border-radius:.7em;padding:.9em}
+.ti-form b.t{font-weight:600;font-size:.9em}
+.ti-reg{display:grid;align-content:center;height:2.6em;border-radius:.4em;background:#fff;padding:0 .7em;font-style:normal;font-variant-numeric:tabular-nums}
+.ti-reg small{font-size:.62em;color:var(--slate);line-height:1}
+.ti-reg em{font-style:normal;font-weight:600;font-size:.95em;letter-spacing:.08em;line-height:1.2;white-space:nowrap;overflow:hidden;width:0;border-right:2px solid var(--pc);text-transform:uppercase}
+.sf-ti.on .ti-reg em{animation:typeReg .9s steps(9,end) .5s both,caret .7s step-end infinite}
+@keyframes typeReg{to{width:6.2em}}
+.ti-form .am-fld{background:#fff}
+.ti-form .am-fld.f1{--d:1.6s}.ti-form .am-fld.f2{--d:1.9s}
+.ti-form .am-btn{justify-content:center}
+.sf-ti .am-btn i::after{content:"get a valuation"}
+.sf-ti.on .am-btn i::after{animation:tiTxt 4.4s steps(1,end) .2s both}
+@keyframes tiTxt{0%{content:"get a valuation"}70%{content:"sent"}100%{content:"sent"}}
+.sf-ti.on .am-btn .fill{animation:rlBar .35s ease 3s both}
+.sf-ti .am-cur{left:76%;top:78%}
+.sf-ti.on .am-cur{animation:amCurIn 2.2s ease-in-out 1.8s both}
+.sf-ti .am-tag{right:-3em;bottom:-.4em;--d:3.4s}
+
+/* 6 · ride · bmw motorrad: the bike page on the laptop, the whatsapp thread on a phone beside it */
+.sf-ri{--pc:var(--motorrad);--w:82cqw}
+.ri-body{grid-template-columns:1.2fr 1fr;align-items:center}
+.ri-bike{aspect-ratio:4/3;background-image:url(assets/clients/motorrad-f900xr.webp)}
+.ri-side{display:grid;gap:.5em}
+.ri-side .am-btn{justify-content:center;background:var(--wa)}
+.ri-side .am-btn svg{width:1.1em;height:1.1em}
+.sf-ri .bd{background:linear-gradient(135deg,#1C69D4 0 40%,#6B2A8E 40% 60%,#E2001A 60%)}
+.am-ph{position:absolute;right:-4em;bottom:-1.2em;width:26%;background:var(--ink);border-radius:2em;padding:.4em;box-shadow:0 1.6em 3em -1.6em rgba(23,24,27,.9),inset 0 0 0 1.5px rgba(250,247,244,.16);z-index:6;opacity:0;transform:translateY(1em)}
+.sf-ri.on .am-ph{animation:land .6s var(--ease-out) 1.2s both}
+.am-ph-scr{aspect-ratio:9/16;border-radius:1.7em;overflow:hidden;background:#E5DDD5;display:flex;flex-direction:column;font-size:.7em}
+.wa-hd{display:flex;align-items:center;gap:.5em;background:#075E54;color:#fff;padding:1.6em .8em .6em;font-size:.9em}
+.wa-hd i{width:1.6em;height:1.6em;border-radius:50%;background:var(--motorrad)}
+.wa-hd span{display:grid;line-height:1.15}
+.wa-hd b{font-weight:600}
+.wa-hd small{font-size:.75em;opacity:.85}
+.wa-th{flex:1;padding:.7em;display:grid;gap:.45em;align-content:start}
+.am-bub{max-width:88%;padding:.5em .65em;border-radius:.7em;font-size:.95em;line-height:1.25;opacity:0;transform:translateY(.4em)}
+.am-bub.me{justify-self:end;background:#DCF8C6;border-bottom-right-radius:.2em}
+.am-bub.them{justify-self:start;background:#fff;border-bottom-left-radius:.2em}
+.am-bub em{display:block;font-style:normal;font-size:.68em;color:var(--slate);text-align:right;margin-top:.1em}
+.am-bub.me em::after{content:"✓✓";color:#34B7F1;margin-left:.3em;letter-spacing:-.15em}
+.sf-ri.on .am-bub.me{animation:land .4s ease 2s both}
+.sf-ri.on .am-bub.them{animation:land .4s ease 3.2s both}
+.sf-ri .am-tag{left:-3em;bottom:-.4em;--d:1.6s}
+
+/* headline: rotating job over "with automotive microsites" */
+.au-head{position:absolute;left:6cqw;bottom:max(14px,6cqh);right:6cqw;margin:0;z-index:6;font-family:var(--display);font-weight:600;font-size:min(8.6cqw,12cqh);line-height:.98;letter-spacing:var(--track-d);color:var(--ink)}
+.au-rot{position:relative;display:block;height:1.12em;overflow:visible;font-size:.65em;margin-bottom:.12em}
+.au-rot span{position:absolute;left:0;top:0;white-space:nowrap;transform:translateY(.45em);opacity:0;transition:transform .9s var(--ease-out),opacity .6s ease}
+.au-rot span.on{transform:none;opacity:1;transition-delay:.12s}
+.au-rot span.out{transform:translateY(-.45em);opacity:0}
+.au-fix{display:flex;align-items:baseline;gap:.22em;white-space:nowrap;margin-top:-.46em}   /* one line, "with" in ink (Sean, 28 Oct); the gradient words sized to fit the window */
+.au-with{font-size:.62em}
+.au-fix .grad{font-size:.76em;line-height:1.05;padding-bottom:.08em;margin-bottom:0}
+.au-pause{z-index:7}
+
+@container (max-height:360px){
+  .au{font-size:max(7px,1.7cqmin)}
+  .au .sf{--w:76cqw}
+  .au-wash{background:linear-gradient(180deg,rgba(250,247,244,0) 40%,rgba(250,247,244,.9) 70%,var(--cream) 88%)}
+  .au-head{font-size:min(9cqw,13cqh)}
+  .au-orb{width:80cqh}
+}
+@container (max-aspect-ratio:9/10) and (min-height:361px){
+  .au{font-size:2.15cqw}
+  .au .sf{--w:94cqw}
+  .au-head{font-size:9.6cqw}
+}
+@media (prefers-reduced-motion:reduce){
+  .sf,.au-orb,.au-rot span{transition:none}
+  .au *{animation:none!important}
+  .am-cur,.am-toast{display:none}
+  .am-tag,.am-fld em,.st-tile,.am-ph,.am-bub{opacity:1;transform:none}
+  .ti-reg em{width:6.2em;border-right:0}
+  .fi-sl i{width:48%}.fi-sl b{left:48%}
+}
+
 /* image window glow: sits BEHIND the window's content, which is lifted onto its own layer above it */
 .svc-visual.glowy::before{content:"";position:absolute;inset:-30%;z-index:0;background:radial-gradient(closest-side,rgba(243,49,137,.55),transparent 70%),radial-gradient(closest-side at 70% 60%,rgba(98,122,255,.5),transparent 70%)}
 .svc-visual.glowy > *{position:relative;z-index:1}
-.svc-visual.glowy > :is(.ga,.wd,.ma){position:absolute}
+.svc-visual.glowy > :is(.ga,.wb,.ma,.so,.mc,.au){position:absolute}
 /* light cards: the same pink/blue glow behind the image window, softer so it reads as a tint on #EDEDED */
 .svc:not(.dark) .svc-visual.glowy::before{background:radial-gradient(closest-side,rgba(243,49,137,.2),transparent 70%),radial-gradient(closest-side at 70% 60%,rgba(98,122,255,.18),transparent 70%)}
 
-/* mockups in the service cards: phones fan (microsites), laptop (automotive), search results (seo), browser frame (web design) */
-.phone{position:relative;width:min(200px,42%);aspect-ratio:9/19.3;border-radius:34px;background:var(--ink);padding:8px;box-shadow:0 40px 70px -30px rgba(23,24,27,.6),inset 0 0 0 1.5px rgba(250,247,244,.14)}
-.phone::before{content:"";position:absolute;top:14px;left:50%;width:32%;height:18px;border-radius:12px;background:var(--ink);transform:translateX(-50%);z-index:3}
-.screen{position:relative;height:100%;border-radius:27px;overflow:hidden;background:var(--cream);color:var(--ink);font-size:10px;display:flex;flex-direction:column}
 
-.laptop{width:88%;display:grid;justify-items:center}
-.lid{width:100%;aspect-ratio:16/10;border-radius:14px 14px 4px 4px;background:var(--ink);padding:8px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
-.lid .screen{border-radius:7px;font-size:11px}
-.base{width:112%;height:12px;border-radius:0 0 12px 12px;background:var(--mist);box-shadow:inset 0 -3px 0 rgba(23,24,27,.12)}
-.show-top{display:flex;justify-content:space-between;padding:10px 14px;font-weight:500;border-bottom:1px solid var(--line)}
-.show-hero{flex:1;background:var(--ink);color:var(--cream);padding:14px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;position:relative;overflow:hidden}
-.show-hero b{font-family:var(--display);font-size:clamp(1.1rem,2vw,1.7rem);line-height:.95;font-weight:600}
-.show-hero::before{content:"";position:absolute;right:-6%;bottom:18%;width:62%;height:28%;border-radius:40% 55% 12% 12%/70% 70% 12% 12%;background:var(--slate);box-shadow:0 10px 18px rgba(23,24,27,.5)}
-.show-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px}
-.show-tiles span{background:var(--mist);border-radius:6px;padding:7px;font-size:9px;text-align:center}
 
-.fan{position:relative;width:100%;height:100%;min-height:360px;display:grid;place-items:center}
-.fan .phone{position:absolute;width:min(170px,30%)}
-.fan .phone:nth-child(1){transform:translateX(-62%) rotate(-9deg) translateY(16px)}
-.fan .phone:nth-child(3){transform:translateX(62%) rotate(9deg) translateY(16px)}
-.fan .phone:nth-child(2){z-index:2}
-.ms{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:14px 10px;color:var(--cream);gap:5px}
-.ms b{font-family:var(--display);font-size:16px;line-height:.95;font-weight:600}
-.ms small{opacity:.75;font-size:9px}
-.ms span{align-self:flex-start;background:var(--cream);color:var(--ink);font-size:9px;padding:4px 8px;border-radius:6px;margin-top:4px}
-.ms.a{background:var(--ink)}
-.ms.b{background:var(--grad);background-size:260% 100%;animation:gradShift 7s ease-in-out infinite alternate}
-.ms.c{background:var(--slate)}
 
-.serp{width:88%;background:var(--cream);border-radius:14px;padding:16px;display:grid;gap:10px;box-shadow:0 30px 60px -30px rgba(23,24,27,.4);font-size:12px}
-.q{display:flex;align-items:center;gap:8px;border-radius:999px;padding:10px 14px;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink)}
-.q i{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--slate)}
-.res{border-radius:10px;padding:10px 12px;display:grid;gap:3px}
-.res small{color:var(--slate);font-size:11px}
-.res b{font-size:14px;font-weight:600;color:var(--ink)}
-.res p{font-size:11px;color:var(--slate)}
-.res.top{background:var(--ink);color:var(--cream)}.res.top b{color:var(--cream)}.res.top small,.res.top p{color:rgba(250,247,244,.65)}
-.res .rank{justify-self:start;font-size:10px;padding:2px 8px;border-radius:999px;background:var(--cream);color:var(--ink);font-weight:600}
-.res.dim{opacity:.45}
-
-.browser{width:88%;border-radius:14px;overflow:hidden;background:var(--cream);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
-.browser-bar{display:flex;gap:6px;align-items:center;padding:10px 12px;background:var(--mist)}
-.browser-bar i{width:9px;height:9px;border-radius:50%;background:rgba(23,24,27,.18)}
-.browser-bar span{margin-left:10px;flex:1;height:18px;border-radius:6px;background:var(--cream);font-size:10px;color:var(--slate);display:flex;align-items:center;padding-left:8px}
 
 /* ---------- work ---------- */
 .work{position:relative;z-index:2;background:var(--ink);color:var(--cream);border-radius:var(--r) var(--r) 0 0;padding-top:14vh}
@@ -802,9 +1399,13 @@ blockquote{margin:0}
 .faq-head{position:sticky;top:calc(var(--nav-h) + 24px);display:grid;gap:18px}
 .faq-head h2{font-size:clamp(2.4rem,4.6vw,4.6rem);max-width:9ch}
 .faq-head p{color:var(--slate);font-size:15px;max-width:30ch}
-.faq-head a{color:var(--ink);border-bottom:1px solid currentColor}
+.faq-head .btn{justify-self:start;margin-top:6px}
+/* question numbers (Sean, 27 Oct: plain, no gradient on the open row); the open row's chevron just turns */
+.faq-n{font-style:normal;flex:none;width:2.2em;font-size:13px;font-weight:500;color:var(--slate);font-variant-numeric:tabular-nums;transition:color .6s ease}
+.faq-acc .acc-row.on .faq-n{color:var(--ink)}
 /* after the staging page: the question in the body face with a chevron, the answer in a mist panel with a coolvetica heading */
-.faq-acc .acc-btn{padding:20px 0;gap:24px}
+.faq-acc .acc-btn{padding:20px 0;gap:24px;justify-content:flex-start}
+.faq-acc .acc-btn i{margin-left:auto}
 .faq-acc .acc-btn span{font-family:var(--text);font-weight:400;font-size:clamp(17px,1.4vw,21px);line-height:1.3;letter-spacing:var(--track)}
 .faq-acc:hover .acc-btn span{color:rgba(23,24,27,.5)}
 .faq-acc .acc-btn i{width:28px;height:28px;box-shadow:none;transition:transform .9s var(--ease-io)}
@@ -817,7 +1418,10 @@ blockquote{margin:0}
 /* ---------- knysna ---------- */
 .place{position:relative;z-index:2;background:var(--cream);padding-bottom:16vh}
 .place-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:end}
-.place h2{font-size:clamp(3.4rem,9vw,9rem)}
+.place h2{font-size:clamp(3.4rem,9vw,9rem);position:relative;isolation:isolate}
+/* a faint brand glow breathing behind the heading: the popup heads' three-colour bloom at a quarter of the strength (Sean, 27 Oct) */
+.place-glow{position:absolute;z-index:-1;pointer-events:none;left:40%;top:50%;width:min(720px,110%);aspect-ratio:1;border-radius:50%;opacity:.14;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(243,49,137,.6),transparent 70%),radial-gradient(closest-side at 72% 58%,rgba(98,122,255,.6),transparent 70%),radial-gradient(closest-side at 30% 70%,rgba(253,157,35,.45),transparent 70%);animation:placeGlow 9s ease-in-out infinite alternate}
+@keyframes placeGlow{from{transform:translate(-50%,-50%) scale(.92)}to{transform:translate(-44%,-54%) scale(1.06)}}
 .place-copy{display:grid;gap:18px;max-width:52ch;color:var(--slate)}
 .place-copy p:first-child{color:var(--ink);font-size:clamp(18px,1.6vw,22px);line-height:1.4}
 .film{position:relative;margin-top:8vh;border-radius:var(--r);overflow:hidden;aspect-ratio:21/9;min-height:320px;max-width:100%;background:var(--ink)}
@@ -863,12 +1467,12 @@ footer{position:relative;z-index:2;background:var(--ink);color:var(--cream);padd
 
 /* gradual blur along the bottom edge of the viewport */
 .gradual-blur{position:fixed;left:0;right:0;bottom:0;height:4.8rem;transition:opacity .7s ease;z-index:80;pointer-events:none;isolation:isolate}
-.gradual-blur > div{position:absolute;inset:0}
+.gradual-blur > div{position:absolute;inset:0;-webkit-backdrop-filter:blur(.8rem);backdrop-filter:blur(.8rem);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 70%);mask-image:linear-gradient(to bottom,transparent,#000 70%)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.gradual-blur{display:none}}
 @media (max-width:900px){.gradual-blur{height:3rem}}
 .gradual-blur.off{opacity:0}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.gradual-blur{display:none}}
 .is-off,.is-off *,.is-off::before,.is-off::after{animation-play-state:paused!important}
-.is-scrolling :is(.grad,.ms.b,.backlight),.is-scrolling .btn::before{animation-play-state:paused!important}
+.is-scrolling :is(.grad,.backlight),.is-scrolling .btn::before{animation-play-state:paused!important}
 /* coolvetica titles always at -35 */
 .nav-mark,.svc-name,.metric b,.foot-big,.film-text b,.rev-score b,.cta .line2,.show-hero b,.ms b,.cite i{letter-spacing:var(--track-d)}
 
@@ -891,7 +1495,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:var(--cream);padd
 .pop-dim.on,.call-dim.on{opacity:.5;visibility:visible;transition:opacity .7s ease}
 /* while a popup or the call panel is open the page behind is frozen: no scrolling (lenis stops; a scrollbar-gutter keeps the width when lenis is off), no animations, no bottom blur */
 html.pop-lock.no-lenis{overflow:hidden;scrollbar-gutter:stable}
-html.pop-lock main :is(.grad,.backlight,.ms.b,.track,.scroll-cue i,.wd-float,.bob,.ht,.rl-bar i,.dots i,.st-swipe i,.st-bars i::after,.fld small,.fld b,.sf-lf .ma-cta,.pm-ring,.yt-bar i,.ap-fill,.se-q,.yt-skip i::after,.ap-btn i::after,.dg-where i,.se-ad,.sh-tile,.di-lead,.di-mpu,.pm-ch),html.pop-lock main .btn::before{animation-play-state:paused!important}
+html.pop-lock main :is(.grad,.backlight,.place-glow,.track,.scroll-cue i,.bob,.ht,.rl-bar i,.dots i,.st-swipe i,.st-bars i::after,.fld small,.fld b,.sf-lf .ma-cta,.pm-ring,.yt-bar i,.ap-fill,.se-q,.yt-skip i::after,.ap-btn i::after,.dg-where i,.se-ad,.sh-tile,.di-lead,.di-mpu,.pm-ch,.ch-cur,.rk-pos::after,.rk-row,.ai-txt span,.ai-src span,.ch-a,.ch-a p,.ch-pick,.wb-cur,.wb-toast,.wb-btn .fill,.wb-btn i::after,.ec-cart b,.ec-cart b::after,.ec-stat,.au-car,.au-drawer,.b2-fld em,.b2-fld small,.rs-dev,.mc-tap,.mc-note,.scr-ad,.sf-ad .mc-site,.ld-cover,.ld-cover i,.sf-ld .mc-site > *,.mc-ring,.sf-sc .mc-site,.mc-fld em,.mc-fld small,.mc-btn .fill,.mc-btn i::after,.pl-chips i,.am-tag,.am-fld em,.am-fld small,.am-cur,.st-tile,.sf-stk .am-site,.sp-cd .am-sec::after,.sp-row .am-btn,.am-btn i::after,.am-btn .fill,.fi-sl i,.fi-sl b,.fi-terms i,.fi-pm b::after,.ti-reg em,.am-ph,.am-bub),html.pop-lock main .btn::before{animation-play-state:paused!important}
 html.pop-lock #gblur{opacity:0}
 /* glowing / gradient type inside a popup holds still while the sheet moves, and while it is scrolled */
 .pop:not(.settled) :is(.backlight,.grad),.pop:not(.settled) .btn::before,.pop-head.is-off :is(.backlight,.grad){animation-play-state:paused!important}
@@ -937,6 +1541,7 @@ html.pop-lock #gblur{opacity:0}
 .zz-txt{display:grid;gap:20px;align-content:start}
 .zz-txt h4{margin:0;font-family:var(--display);font-weight:600;font-size:60px;line-height:48px;letter-spacing:-1.8px;max-width:530px;text-wrap:balance}
 .zz-txt p{font-size:16px;line-height:25px;color:var(--slate);max-width:451px}
+.zz-txt .eyebrow{font-size:13px;line-height:1.4;margin-bottom:-6px}
 .zz-fig{width:min(440px,83%);justify-self:center}
 /* let's get started: accordion (slow, eased open and close) */
 .acc{border-top:1px solid var(--line)}
@@ -979,6 +1584,26 @@ html.pop-lock #gblur{opacity:0}
 #popSeo .acc-img img{width:auto;height:92%;max-width:96%;object-fit:contain}
 /* web design: text-only "what we do" grid + packages list */
 .wg-text{row-gap:72px}
+/* microsites popup: five questions between "why it works" and "our services" as a sticky story (chosen by Sean 28 Oct over alternating cards): questions scroll on the left and dim when not current; one mist frame on the right stays pinned and crossfades its whole device mock-up */
+.qa-head{margin-top:clamp(72px,10vh,120px)}
+.qs{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,96px);max-width:1100px;margin:0 auto;align-items:start}
+.qs-step{min-height:62vh;display:flex;flex-direction:column;justify-content:center;gap:22px;opacity:.28;transition:opacity .6s ease}
+.qs-step.on{opacity:1}
+.qs-mob{display:none;margin:0;border-radius:20px;background:var(--mist);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.qs-mob img{display:block;width:100%;height:auto}
+.qs-step h4{font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,3.6vw,3.6rem);line-height:.92;letter-spacing:var(--track-d);text-wrap:balance}
+.qs-step p{font-size:16px;line-height:1.6;color:var(--ink);max-width:44ch}
+.qs-stage{position:sticky;top:calc(50vh - min(41vh,330px))}
+.qs-frame{position:relative;aspect-ratio:780/823;max-height:82vh;border-radius:var(--r);background:var(--mist);overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.qs-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:translateY(14px) scale(.97);transition:opacity .6s ease,transform .9s var(--ease-out)}
+.qs-img.on{opacity:1;transform:none}
+/* automotive popup: its own gradient (Sean, 27 Oct: blue → green) on the popup's gradient words and the card's; "built for your success" = text + dealer logos + buttons left, the bakkie right */
+.au-grad{--grad:linear-gradient(90deg,#294af4 0%,#627bfc 20%,#43a2cc 40%,#21cd96 60%,#13e17e 80%,#01f663 100%);--g1:#294af4;--g2:#627bfc;--g3:#43a2cc;--g4:#21cd96;--g5:#01f663}
+.au-grad .btn{--glow1:41,74,244;--glow2:67,162,204;--glow3:1,246,99}   /* the card's buttons glow in the automotive colours too (Sean, 28 Oct) */
+.au-win{max-width:1100px;margin-inline:auto}
+.au-grad .pop-glow{background:radial-gradient(closest-side,rgba(41,74,244,.55),transparent 70%),radial-gradient(closest-side at 72% 58%,rgba(1,246,99,.45),transparent 70%),radial-gradient(closest-side at 30% 70%,rgba(67,162,204,.4),transparent 70%)}
+.au-logos{display:flex;flex-wrap:wrap;align-items:center;gap:18px 36px;list-style:none;margin:4px 0 8px;padding:0}
+.au-logos img{display:block;height:auto}
 .pw-copy{display:grid;gap:14px}
 .pw-copy p{font-size:16px;line-height:25px;color:var(--slate);max-width:451px}
 .pw-copy .pw-lead{color:var(--ink)}
@@ -999,6 +1624,11 @@ html.pop-lock #gblur{opacity:0}
   .sec-lottie{height:56px}
   .zz{gap:72px}
   .zz-row{grid-template-columns:1fr;gap:28px}
+  .qs{grid-template-columns:1fr;gap:0}
+  .qs-stage{display:none}
+  .qs-steps{display:grid;gap:40px}
+  .qs-step{min-height:0;opacity:1;gap:18px}
+  .qs-mob{display:block}
   .zz-flip .zz-fig{order:2}
   .zz-txt h4{font-size:55px;line-height:44px}
   .zz-fig{width:min(350px,100%)}
@@ -1101,12 +1731,6 @@ html.pop-lock #gblur{opacity:0}
   .svc .tags{display:none}
   .btns{flex-wrap:nowrap}
   .btns .btn{flex:1;justify-content:center;height:44px;padding:0 12px}
-  .svc .serp,.svc .laptop{width:auto;max-width:92%;transform:scale(.74);transform-origin:center}
-  .svc .phone{height:88%;width:auto}
-  .fan{min-height:0}
-  .fan .phone{height:84%;width:auto}
-  .fan .phone:nth-child(1){transform:translateX(-58%) rotate(-9deg) translateY(10px)}
-  .fan .phone:nth-child(3){transform:translateX(58%) rotate(9deg) translateY(10px)}
   /* work */
   .panel-foot{flex-direction:column;align-items:stretch}
   .panel-btns{justify-content:flex-start}
@@ -1234,7 +1858,7 @@ html.pop-lock #gblur{opacity:0}
                 <div class="se-ad">
                   <div class="spon">sponsored</div>
                   <div class="hd"><i class="av">n</i><span><b>nissan eastern cape</b><small>nissaneasterncape.co.za</small></span></div>
-                  <div class="se-h">new nissan magnite from r249 900 · book a test drive today</div>
+                  <div class="se-h">new nissan magnite from <span class="rand">R249 900</span> · book a test drive today</div>
                   <div class="se-d">official nissan dealer. finance options, trade-ins welcome and same-week delivery across the eastern cape.</div>
                   <div class="se-links"><span>book a test drive</span><span>view specials</span><span>find a branch</span></div>
                   <div class="se-call"><i><svg><use href="#i-phone"/></svg></i>call 041 ··· ····</div>
@@ -1246,9 +1870,9 @@ html.pop-lock #gblur{opacity:0}
               <div class="bob">
                 <div class="spon">sponsored <small>· shop online</small></div>
                 <div class="sh-row">
-                  <div class="sh-tile sw"><i class="pic"></i><b>r12 999</b><span>15.6" business laptop, 16gb</span><small>seartec</small><em>★★★★★<i>(212)</i></em></div>
-                  <div class="sh-tile sx"><i class="pic"></i><b>r1 299</b><span>oversized logo hoodie</span><small>superdry</small><em>★★★★★<i>(98)</i></em></div>
-                  <div class="sh-tile sy"><i class="pic"></i><b>r165</b><span>sauvignon blanc 2025, 750ml</span><small>la motte</small><em>★★★★☆<i>(61)</i></em></div>
+                  <div class="sh-tile sw"><i class="pic"></i><b><span class="rand">R12 999</span></b><span>15.6" business laptop, 16gb</span><small>seartec</small><em>★★★★★<i>(212)</i></em></div>
+                  <div class="sh-tile sx"><i class="pic"></i><b><span class="rand">R1 299</span></b><span>oversized logo hoodie</span><small>superdry</small><em>★★★★★<i>(98)</i></em></div>
+                  <div class="sh-tile sy"><i class="pic"></i><b><span class="rand">R165</span></b><span>sauvignon blanc 2025, 750ml</span><small>la motte</small><em>★★★★☆<i>(61)</i></em></div>
                 </div>
               </div>
             </div>
@@ -1268,7 +1892,7 @@ html.pop-lock #gblur{opacity:0}
               <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" fill="currentColor"/></svg></span>
               <div class="bob">
                 <div class="dg-pic"></div>
-                <div class="dg-copy"><b>an exceptional place to find yourself.</b><small>sponsored · mantis collection · founders lodge, from r4 950 a night</small></div>
+                <div class="dg-copy"><b>an exceptional place to find yourself.</b><small>sponsored · mantis collection · founders lodge, from <span class="rand">R4 950</span> a night</small></div>
                 <div class="dg-where"><i>youtube</i><i>discover</i><i>gmail</i></div>
               </div>
             </div>
@@ -1332,7 +1956,7 @@ html.pop-lock #gblur{opacity:0}
               <span class="bd" aria-hidden="true"><svg><use href="#i-like"/></svg></span>
               <div class="bob">
                 <div class="hd"><i class="av"></i><span><b>mantis collection</b><small>sponsored</small></span></div>
-                <p>an exceptional place to find yourself. founders lodge, from r4 950 a night.</p>
+                <p>an exceptional place to find yourself. founders lodge, from <span class="rand">R4 950</span> a night.</p>
                 <div class="pic"></div>
                 <div class="fb-cta"><small>mantiscollection.com</small><span class="ma-cta">book now</span></div>
                 <div class="fb-re"><i><svg><use href="#i-like"/></svg></i><i><svg><use href="#i-heart"/></svg></i><b>1 284</b><span>96 comments</span></div>
@@ -1397,7 +2021,7 @@ html.pop-lock #gblur{opacity:0}
               <div class="bob">
                 <div class="hd"><i class="av"></i><span><b>nissan eastern cape</b><small>sponsored</small></span></div>
                 <div class="pic"><span class="wa-tag"><i><svg><use href="#i-phone"/></svg></i>send message</span></div>
-                <strong>new nissan magnite, from r249 900</strong>
+                <strong>new nissan magnite, from <span class="rand">R249 900</span></strong>
                 <small>chat to us on whatsapp for a quote or a test drive.</small>
                 <span class="ma-cta"><svg aria-hidden="true"><use href="#i-bubble"/></svg>send message</span>
               </div>
@@ -1410,7 +2034,7 @@ html.pop-lock #gblur{opacity:0}
         </div>
       </article>
 
-      <article class="svc" style="--i:2">
+      <article class="svc titled" style="--i:2">
         <div class="svc-shade"></div>
         <div class="svc-copy">
           <p class="svc-name">microsites</p>
@@ -1422,15 +2046,83 @@ html.pop-lock #gblur{opacity:0}
           </div>
         </div>
         <div class="svc-visual glowy">
-          <div class="fan">
-            <div class="phone"><div class="screen"><div class="ms a"><small>franschhoek</small><b>la motte</b><span>explore</span></div></div></div>
-            <div class="phone"><div class="screen"><div class="ms b"><small>the new bmw 3 series</small><b>bmw montana</b><span>find your bmw</span></div></div></div>
-            <div class="phone"><div class="screen"><div class="ms c"><small>we lead, others copy</small><b>seartec</b><span>enquire</span></div></div></div>
+          <div class="mc" data-mc data-on="ad" aria-label="live in 48 hours, loads in a blink, built for mobile, lead forms built in, and no build fees from R2 500 a month, with microsites: an ad is tapped, the page loads, one scroll reaches the offer, the form sends, the plan is shown">
+            <i class="mc-grid" aria-hidden="true"></i>
+            <i class="mc-orb" aria-hidden="true"></i>
+            <div class="sf sf-ad on" data-k="ad">
+              <div class="mc-ph"><div class="mc-scr">
+                <div class="mc-site">
+                  <div class="mc-nav"><span class="mc-wm">la motte</span><i></i></div>
+                  <div class="mc-hero"><b>reserve collection chardonnay.</b><small>from the franschhoek valley</small><span class="mc-btn">order now</span></div>
+                  <div class="mc-sec"><b>six bottles, delivered.</b><p>order online and we deliver nationwide within three working days.</p></div>
+                </div>
+                <div class="scr-ad" aria-hidden="true">
+                  <div class="ad-hd"><i></i><span><b>lamottewine</b><small>sponsored</small></span></div>
+                  <div class="ad-pic"></div>
+                  <div class="ad-cta"><span>learn more</span><i></i></div>
+                  <div class="ad-acts"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.3-9.4C1.4 8.3 3.6 5 6.9 5c2 0 3.4 1.1 5.1 3 1.7-1.9 3.1-3 5.1-3 3.3 0 5.5 3.3 4.2 6.6C19.5 16.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-5A8 8 0 1 1 21 12z" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+                </div>
+                <i class="mc-tap" aria-hidden="true"></i>
+              </div></div>
+              <div class="mc-note"><i><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/></svg></i><b>48 hours</b><small>from brief to live</small></div>
+            </div>
+            <div class="sf sf-ld" data-k="ld">
+              <div class="mc-ph"><div class="mc-scr">
+                <div class="mc-site">
+                  <div class="mc-nav"><span class="mc-wm">leopard's leap</span><i></i></div>
+                  <div class="mc-hero"><b>family vineyards, open daily.</b><small>franschhoek</small><span class="mc-btn">book a tasting</span></div>
+                  <div class="mc-sec"><b>the tasting room.</b><p>wine, food and books, with the mountains as the view.</p></div>
+                </div>
+                <div class="ld-cover" aria-hidden="true"><i></i></div>
+              </div></div>
+              <div class="mc-note"><span class="mc-ring" aria-hidden="true"></span><b></b><small>fully loaded on mobile</small></div>
+            </div>
+            <div class="sf sf-sc" data-k="sc">
+              <div class="mc-ph"><div class="mc-scr">
+                <div class="mc-site">
+                  <div class="mc-nav"><span class="mc-wm">bmw montana</span><i></i></div>
+                  <div class="mc-hero" role="img" aria-label="bmw montana: the new bmw i3 sedan"></div>
+                  <div class="mc-sec"><b>this month's offer.</b><p>one page, one offer, one button. nothing in the way.</p></div>
+                  <div class="sc-offer"><div class="sc-car" role="img" aria-label="bmw m3"></div><b>m3</b><div class="sc-row"><small>view the offer</small><em>book a test drive</em></div></div>
+                  <div class="mc-sec"><span class="mc-skel"></span><span class="mc-skel s"></span></div>
+                </div>
+                <i class="mc-tap" aria-hidden="true"></i>
+              </div></div>
+              <div class="mc-note"><i><svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm3 17h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></i><b>one scroll</b><small>hero to offer to button</small></div>
+            </div>
+            <div class="sf sf-mlf" data-k="lf">
+              <div class="mc-ph"><div class="mc-scr">
+                <div class="mc-site">
+                  <div class="mc-nav"><span class="mc-wm">bmw montana</span><i></i></div>
+                  <div class="mc-hero"><b>drive one this weekend.</b></div>
+                  <div class="lf-form"><b>book a test drive</b><i class="mc-fld f1"><small>name</small><em>nomsa k.</em></i><i class="mc-fld f2"><small>mobile</small><em>082 ··· ····</em></i><i class="mc-fld f3"><small>model</small><em>m3</em></i><span class="mc-btn"><span class="fill" aria-hidden="true"></span><i></i></span><small class="lf-foot">no obligation · we call back within the hour</small></div>
+                  <div class="mc-sec"><span class="mc-skel"></span><span class="mc-skel s"></span></div>
+                </div>
+                <i class="mc-tap" aria-hidden="true"></i>
+              </div></div>
+              <div class="mc-note"><i><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>lead in</b><small>straight to your inbox</small></div>
+            </div>
+            <div class="sf sf-pl" data-k="pl">
+              <div class="mc-ph"><div class="mc-scr">
+                <div class="mc-site">
+                  <div class="mc-nav"><span class="mc-wm">umoya</span><i></i></div>
+                  <div class="mc-hero" role="img" aria-label="welcome to umoya safari lodge, black rhino game reserve"></div>
+                  <div class="mc-sec"><b>stay, dine, explore.</b><p>stylish serenity in the reserve. tell us your dates and we'll come back within the hour.</p><span class="mc-btn pl-btn">enquire now</span></div>
+                  <div class="pl-chips"><i>mobile-first</i><i>seo-ready</i><i>lead form</i><i>hosted</i></div>
+                </div>
+              </div></div>
+              <div class="mc-note"><i><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 11h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></i><b><span class="rand">R2 500</span> pm</b><small>no build fees · month-to-month</small></div>
+              <div class="mc-note pl-tag"><b><span class="rand">R0</span></b><small>upfront</small></div>
+            </div>
+
+            <i class="mc-wash" aria-hidden="true"></i>
+            <p class="mc-head"><span class="mc-rot"><span class="on">live in 48 hours</span><span>loads in a blink</span><span>built for mobile</span><span>lead forms built in</span><span>no build fees</span></span><span class="mc-fix"><span class="mc-with">with</span> <span class="grad">microsites</span></span></p>
+            <button class="gad-pause mc-pause" type="button" aria-label="pause animation"><i></i></button>
           </div>
         </div>
       </article>
 
-      <article class="svc dark" style="--i:3">
+      <article class="svc dark au-grad titled" style="--i:3">
         <div class="svc-shade"></div>
         <div class="svc-copy">
           <p class="svc-name">automotive microsites</p>
@@ -1438,22 +2130,131 @@ html.pop-lock #gblur{opacity:0}
             <h3>your online <span class="grad">digital showroom.</span></h3>
             <p>built for dealerships. your stock, your campaigns and your sales team connected in one place, so every test-drive enquiry lands with the right person, fast.</p>
             <ul class="tags"><li>automotive</li><li>stock &amp; leads</li><li>test drives</li><li>finance enquiries</li></ul>
-            <div class="btns"><a href="#" class="btn">learn more</a><a href="#work" class="btn ghost">success stories</a></div>
+            <div class="btns"><a href="#automotive-microsites" class="btn" data-pop="auto">learn more</a><a href="#work" class="btn ghost">success stories</a></div>
           </div>
         </div>
         <div class="svc-visual glowy">
-          <div class="laptop">
-            <div class="lid"><div class="screen">
-              <div class="show-top"><span>your dealership</span><span>new · used · finance</span></div>
-              <div class="show-hero"><small>this month only</small><b>find your next car.</b></div>
-              <div class="show-tiles"><span>new</span><span>pre-owned</span><span>finance</span><span>test drive</span></div>
-            </div></div>
-            <div class="base"></div>
+          <div class="au" data-au data-on="st" aria-label="show your stock, push the special, book test drives, qualify finance leads, bring in trade-ins and send leads to whatsapp with automotive microsites: bmw, mini, subaru, hyundai, mahindra and bmw motorrad">
+            <i class="au-grid" aria-hidden="true"></i>
+            <i class="au-orb" aria-hidden="true"></i>
+            <div class="sf sf-stk on" data-k="st">
+              <div class="am-lap">
+                <div class="am-lid"><span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l1.5-5h11L19 13M4 13h16v5H4zM7 18v2M17 18v2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="am-scr">
+                  <div class="am-site">
+                    <div class="am-nav"><span class="am-wm">bmw montana</span><i>new</i><i>used</i><i>finance</i><span class="am-btn"><i>book a test drive</i></span></div>
+                    <div class="am-body">
+                      <div class="st-hero" role="img" aria-label="bmw montana: the new bmw i3 sedan"></div>
+                      <div class="am-h">new in stock.</div>
+                      <div class="st-grid">
+                        <div class="st-tile"><i class="am-car" style="background-image:url(assets/clients/1-series.webp)"></i><b>1 series</b><small>view offers</small><em>book a test drive</em></div>
+                        <div class="st-tile"><i class="am-car" style="background-image:url(assets/clients/3-series.webp)"></i><b>3 series</b><small>view offers</small><em>book a test drive</em></div>
+                        <div class="st-tile"><i class="am-car" style="background-image:url(assets/clients/ix1.webp)"></i><b>ix1</b><small>view offers</small><em>book a test drive</em></div>
+                        <div class="st-tile"><i class="am-car" style="background-image:url(assets/clients/m3.webp)"></i><b>m3</b><small>view offers</small><em>book a test drive</em></div>
+                      </div>
+                      <span class="am-skel"></span><span class="am-skel s"></span>
+                    </div>
+                  </div>
+                </div></div>
+                <div class="am-base"></div>
+                <div class="am-tag"><b>live stock</b><small>updated from your dms</small></div>
+              </div>
+            </div>
+            <div class="sf sf-sp" data-k="sp">
+              <div class="am-lap">
+                <div class="am-lid"><span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/></svg></span><div class="am-scr">
+                  <div class="am-site">
+                    <div class="am-nav"><span class="am-wm">mini montana</span><i>models</i><i>specials</i><i>finance</i><span class="am-btn"><i>enquire</i></span></div>
+                    <div class="am-body">
+                      <div class="sp-hero" role="img" aria-label="the mini cooper 5-door, from R7 899 pm, 48 months"></div>
+                      <div class="sp-row">
+                        <span class="sp-badge"><i></i>this month only</span>
+                        <div class="sp-cd" aria-hidden="true"><span><b>12</b><small>days</small></span><span><b>06</b><small>hrs</small></span><span><b>41</b><small>min</small></span><span><b class="am-sec"></b><small>sec</small></span></div>
+                        <span class="am-btn"><i>claim this offer</i></span>
+                      </div>
+                      <span class="am-skel"></span><span class="am-skel s"></span>
+                    </div>
+                  </div>
+                </div></div>
+                <div class="am-base"></div>
+                <div class="am-tag"><b>one offer</b><small>one page, one button</small></div>
+              </div>
+            </div>
+            <div class="sf sf-td" data-k="td">
+              <div class="am-lap">
+                <div class="am-lid"><span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM4 11h16M8 4v4M16 4v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="am-scr">
+                  <div class="am-site">
+                    <div class="am-nav"><span class="am-wm">subaru edenvale</span><i>range</i><i>offers</i><i>service</i></div>
+                    <div class="am-body td-body">
+                      <div><div class="am-car td-car" role="img" aria-label="subaru forester"></div><div class="am-h">forester.</div><div class="am-chips"><i>awd</i><i>e-boxer</i><i>eyesight</i></div></div>
+                      <div class="td-side"><b style="font-weight:600;font-size:.9em">book a test drive</b><i class="am-fld f1"><small>name</small><em>lerato m.</em></i><i class="am-fld f2"><small>mobile</small><em>083 ··· ····</em></i><i class="am-fld f3"><small>branch</small><em>edenvale</em></i><span class="am-btn"><span class="fill" aria-hidden="true"></span><i></i></span></div>
+                    </div>
+                    <span class="am-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                  </div>
+                </div></div>
+                <div class="am-base"></div>
+                <div class="am-tag"><b><i aria-hidden="true"></i>assigned to thabo</b><small>sales exec · edenvale · 9 seconds ago</small></div>
+              </div>
+            </div>
+            <div class="sf sf-fi" data-k="fi">
+              <div class="am-lap">
+                <div class="am-lid"><span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 11h16M7 15h3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="am-scr">
+                  <div class="am-site">
+                    <div class="am-nav"><span class="am-wm">hyundai rustenburg</span><i>range</i><i>finance</i><i>service</i></div>
+                    <div class="am-body fi-body">
+                      <div><div class="fi-car">vehicle image<br>to come</div><div class="am-h" style="margin-top:.5em">finance it.</div><div class="am-sub">move the deposit and the term, see the monthly, apply in a minute.</div></div>
+                      <div class="fi-calc"><b class="t">finance calculator</b><div class="fi-lab"><span>deposit</span><em>10%</em></div><div class="fi-sl"><i></i><b></b></div><div class="fi-lab"><span>term</span></div><div class="fi-terms"><i>48</i><i>60</i><i>72</i></div><div class="fi-pm"><b></b><small>per month · illustrative</small></div><span class="am-btn"><span class="fill" aria-hidden="true"></span><i></i></span></div>
+                    </div>
+                    <span class="am-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                  </div>
+                </div></div>
+                <div class="am-base"></div>
+                <div class="am-tag"><b>pre-qualified</b><small>straight to your f&amp;i desk</small></div>
+              </div>
+            </div>
+            <div class="sf sf-ti" data-k="ti">
+              <div class="am-lap">
+                <div class="am-lid"><span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="am-scr">
+                  <div class="am-site">
+                    <div class="am-nav"><span class="am-wm">mahindra</span><i>range</i><i>trade-in</i><i>service</i></div>
+                    <div class="am-body ti-body">
+                      <div><div class="ti-car">vehicle image<br>to come</div><div class="am-h" style="margin-top:.5em">what's my car worth?</div><div class="am-sub">type your registration and we'll fill in the rest.</div></div>
+                      <div class="ti-form"><b class="t">trade-in valuation</b><i class="ti-reg"><small>registration</small><em>ND 48 229</em></i><i class="am-fld f1"><small>vehicle</small><em>2021 · double cab · 48 000 km</em></i><i class="am-fld f2"><small>mobile</small><em>072 ··· ····</em></i><span class="am-btn"><span class="fill" aria-hidden="true"></span><i></i></span></div>
+                    </div>
+                    <span class="am-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                  </div>
+                </div></div>
+                <div class="am-base"></div>
+                <div class="am-tag"><b>trade-in lead</b><small>valuation booked</small></div>
+              </div>
+            </div>
+            <div class="sf sf-ri" data-k="ri">
+              <div class="am-lap">
+                <div class="am-lid"><span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 16l4-7h5l3 7M10 9l-1-3h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="am-scr">
+                  <div class="am-site">
+                    <div class="am-nav"><span class="am-wm">bmw motorrad</span><i>bikes</i><i>gear</i><i>service</i></div>
+                    <div class="am-body ri-body">
+                      <div><div class="am-car ri-bike" role="img" aria-label="bmw f 900 xr"></div><div class="am-h">f 900 xr.</div></div>
+                      <div class="ri-side"><div class="am-sub">book a ride and a sales exec will confirm on whatsapp.</div><span class="am-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-5A8 8 0 1 1 21 12z" fill="none" stroke="currentColor" stroke-width="2"/></svg><i>book a ride on whatsapp</i></span></div>
+                    </div>
+                  </div>
+                </div></div>
+                <div class="am-base"></div>
+                <div class="am-ph" aria-hidden="true"><div class="am-ph-scr">
+                  <div class="wa-hd"><i></i><span><b>bmw motorrad</b><small>online</small></span></div>
+                  <div class="wa-th"><div class="am-bub me">hi, i'd like to book a ride on the f 900 xr<em>09:41</em></div><div class="am-bub them">hi! saturday 9am works. i'll have it ready for you.<em>09:42</em></div></div>
+                </div></div>
+                <div class="am-tag"><b>lead to whatsapp</b><small>in your sales exec's hand</small></div>
+              </div>
+            </div>
+
+            <i class="au-wash" aria-hidden="true"></i>
+            <p class="au-head"><span class="au-rot"><span class="on">show your stock</span><span>push the special</span><span>book test drives</span><span>qualify finance leads</span><span>bring in trade-ins</span><span>send leads to whatsapp</span></span><span class="au-fix"><span class="au-with">with</span> <span class="grad">automotive microsites</span></span></p>
+            <button class="gad-pause au-pause" type="button" aria-label="pause animation"><i></i></button>
           </div>
         </div>
       </article>
 
-      <article class="svc" style="--i:4">
+      <article class="svc titled" style="--i:4">
         <div class="svc-shade"></div>
         <div class="svc-copy">
           <p class="svc-name">seo</p>
@@ -1465,16 +2266,56 @@ html.pop-lock #gblur{opacity:0}
           </div>
         </div>
         <div class="svc-visual glowy">
-          <div class="serp" aria-label="example search results">
-            <div class="q"><i></i>boutique hotel knysna heads</div>
-            <div class="res top"><span class="rank">position 1</span><small>headoverhills.co.za</small><b>head over hills · luxury retreat, knysna</b><p>a five-star boutique hotel on the edge of the knysna heads.</p></div>
-            <div class="res dim"><small>booking-site.com</small><b>hotels in knysna · compare prices</b><p>find deals on hotels in knysna…</p></div>
-            <div class="res dim"><small>travel-portal.com</small><b>top 10 places to stay in knysna</b><p>our pick of the best…</p></div>
+          <div class="so" data-so data-on="rk" aria-label="climb the rankings, be the answer and get recommended with seo: organic search results, google's ai overview and a chatgpt answer">
+            <i class="so-grid" aria-hidden="true"></i>
+            <i class="so-orb" aria-hidden="true"></i>
+            <div class="sf sf-rk on" data-k="rk">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18l6-7 4 4 6-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h5v5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div class="bob">
+                <div class="qbar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>boutique hotel knysna heads</div>
+                <div class="rk-list">
+                  <div class="rk-row dim"><i class="fav">t</i><span><b>top 10 hotels in knysna · travel guide</b><small>travelguide.co.za › knysna › hotels</small></span></div>
+                  <div class="rk-row dim"><i class="fav">b</i><span><b>knysna hotels from <span class="rand">R1 200</span> · book now</b><small>bookingsite.com › south-africa › knysna</small></span></div>
+                  <div class="rk-row dim"><i class="fav">l</i><span><b>lagoon view guesthouse, knysna</b><small>lagoonview.co.za</small></span></div>
+                  <div class="rk-row dim"><i class="fav">k</i><span><b>where to stay on the garden route</b><small>knysnaguide.co.za › stay</small></span></div>
+                  <div class="rk-row me"><i class="fav">h</i><span><b>head over hills · luxury retreat, knysna</b><small>headoverhills.co.za</small></span><span class="rk-pos"></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="sf sf-ai" data-k="ai">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" fill="currentColor"/></svg></span>
+              <div class="bob">
+                <div class="qbar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>best place to stay near the knysna heads</div>
+                <div class="ai-box">
+                  <div class="ai-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.6 4.2 2.5 7.2 7 10-4.5 2.8-6.4 5.8-7 10-.6-4.2-2.5-7.2-7-10 4.5-2.8 6.4-5.8 7-10z" fill="var(--gb)"/><path d="M12 2c.6 4.2 2.5 7.2 7 10H12z" fill="var(--gr)"/><path d="M12 12h7c-4.5 2.8-6.4 5.8-7 10z" fill="var(--gy)"/><path d="M12 12v10c-.6-4.2-2.5-7.2-7-10z" fill="var(--gg)"/></svg>ai overview</div>
+                  <div class="ai-txt"><span>for views of the heads, the best-rated option is</span><span><b>head over hills</b>, a five-star boutique hotel on the cliff</span><span>edge, with sea-facing suites and a private spa.</span></div>
+                  <div class="ai-src"><span class="me"><i class="fav">h</i>headoverhills.co.za</span><span><i class="fav">t</i>travelguide.co.za</span><span><i class="fav">k</i>knysnaguide.co.za</span></div>
+                  <div class="ai-more"><span>show more</span><i></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="sf sf-ch" data-k="ch">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-5A8 8 0 1 1 21 12z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M8.5 12h7M8.5 9h7M8.5 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+              <div class="bob">
+                <div class="ch-head"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/></svg></i>chatgpt</div>
+                <div class="ch-q">where should i stay in knysna for a view of the heads?</div>
+                <div class="ch-a">
+                  <p>the stand-out is a boutique hotel right on the cliffs:</p>
+                  <div class="ch-pick"><i></i><span><b>head over hills</b><small>five-star retreat · sea-facing suites · private spa</small></span></div>
+                  <p>book direct for the best rate, and ask for a suite with a terrace.<i class="ch-cur"></i></p>
+                </div>
+                <div class="ch-in"><i>ask anything</i><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></b></div>
+              </div>
+            </div>
+
+            <i class="so-wash" aria-hidden="true"></i>
+            <p class="so-head"><span class="so-rot"><span class="on">climb the rankings</span><span>be the answer</span><span>get recommended</span></span><span class="so-fix"><span class="so-with">with</span> <span class="grad">seo</span></span></p>
+            <button class="gad-pause so-pause" type="button" aria-label="pause animation"><i></i></button>
           </div>
         </div>
       </article>
 
-      <article class="svc dark" style="--i:5">
+      <article class="svc dark titled" style="--i:5">
         <div class="svc-shade"></div>
         <div class="svc-copy">
           <p class="svc-name">web design</p>
@@ -1486,31 +2327,77 @@ html.pop-lock #gblur{opacity:0}
           </div>
         </div>
         <div class="svc-visual glowy">
-          <div class="wd" data-wd aria-label="website design showcase: modern design, built to convert, mobile-first, tested at launch">
-            <div class="wd-scene on">
-              <div class="wd-screen"><div class="wd-float"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>yourbrand.co.za</span></div>
-                <div class="wf"><div class="wf-nav"><b></b><span></span><span></span><span></span></div>
-                  <div class="wf-banner"><i class="wf-h"></i><i class="wf-l"></i><i class="wf-btn"></i></div>
-                  <div class="wf-row"><i></i><i></i><i></i></div></div></div></div></div>
-              <div class="wd-copy"><p class="wd-t">modern design.</p><p class="wd-s">clean layouts that put your brand first.</p></div>
+          <div class="wb" data-wb data-on="ec" aria-label="sell more, take bookings, drive enquiries, win quotes and fit every screen with web design: a wine shop, a lodge booking, a dealership, a b2b quote form and one design on three devices">
+            <i class="wb-grid" aria-hidden="true"></i>
+            <i class="wb-orb" aria-hidden="true"></i>
+            <div class="sf sf-ec on" data-k="ec">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg></span>
+              <div class="bob">
+                <div class="wb-bar"><i></i><i></i><i></i><span>la-motte.co.za/shop</span></div>
+                <div class="ec-page">
+                  <div class="wb-nav"><span class="wb-wm">la motte</span><i>wines</i><i>estate</i><i>visit</i><span class="ec-cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><b></b></span></div>
+                  <div class="ec-prod">
+                    <i class="pic"></i>
+                    <div class="ec-info"><small>reserve collection</small><b>chardonnay</b><em><span class="rand">R220.00</span></em><div class="ec-row"><span class="ec-qty">− <b>1</b> +</span><span class="wb-btn"><span class="fill" aria-hidden="true"></span><i></i></span></div></div>
+                  </div>
+                  <span class="wb-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                </div>
+                <span class="wb-toast" aria-hidden="true"><i><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>added to cart</span>
+                <span class="ec-stat" aria-hidden="true"><b>+108.74%</b><small>e-commerce revenue</small></span>
+              </div>
             </div>
-            <div class="wd-scene alt">
-              <div class="wd-screen"><div class="wd-float"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>yourbrand.co.za</span></div>
-                <div class="wf wf-split"><div class="wf-col"><i class="wf-h"></i><i class="wf-l"></i><i class="wf-l s"></i><i class="wf-btn ring"></i></div>
-                  <div class="wf-form"><i></i><i></i><i></i><b></b></div></div></div></div></div>
-              <div class="wd-copy"><p class="wd-t">built to convert.</p><p class="wd-s">every page guides visitors toward an enquiry.</p></div>
+            <div class="sf sf-bk" data-k="bk">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM4 11h16M8 4v4M16 4v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div class="bob">
+                <div class="bk-hero"><b class="wb-wm">serene safari lodges</b><small>lodges on private reserves</small></div>
+                <div class="bk-form">
+                  <div class="bk-two"><label>check in<b>12 dec</b></label><label>check out<b>15 dec</b></label></div>
+                  <div class="bk-two"><label>guests<b>2 adults</b></label><label>lodge<b>river lodge</b></label></div>
+                  <span class="wb-btn"><span class="fill" aria-hidden="true"></span><i></i></span>
+                </div>
+                <span class="wb-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                <span class="wb-toast" aria-hidden="true"><i><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>confirmation sent</span>
+              </div>
             </div>
-            <div class="wd-scene">
-              <div class="wd-screen wd-mob"><div class="wd-float"><div class="wd-phone"><div class="wd-pscreen">
-                <i class="p-hero"></i><i class="wf-l"></i><i class="wf-l s"></i><i class="wf-btn"></i><span class="p-row"><i></i><i></i></span></div></div></div></div>
-              <div class="wd-copy"><p class="wd-t">mobile-first.</p><p class="wd-s">designed for the phone in your customer's hand.</p></div>
+            <div class="sf sf-au" data-k="au">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l1.5-5h11L19 13M4 13h16v5H4zM7 18v2M17 18v2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="15.5" r="1" fill="currentColor"/><circle cx="16" cy="15.5" r="1" fill="currentColor"/></svg></span>
+              <div class="bob">
+                <div class="wb-bar"><i></i><i></i><i></i><span>bmwmontana.co.za</span></div>
+                <div class="au-page">
+                  <div class="wb-nav"><span class="wb-wm">bmw montana</span><i>new</i><i>used</i><i>service</i><span class="wb-btn"><i></i></span></div>
+                  <div class="au-hero" role="img" aria-label="bmw montana: the new bmw i3 sedan"></div>
+                  <div class="au-cars">
+                    <div class="au-car c1"><i></i><b>1 series</b><small>view offers</small><em>book a test drive</em></div>
+                    <div class="au-car c3"><i></i><b>3 series</b><small>view offers</small><em>book a test drive</em></div>
+                    <div class="au-car cx"><i></i><b>ix1</b><small>view offers</small><em>book a test drive</em></div>
+                  </div>
+                  <div class="au-drawer" aria-hidden="true"><b>test drive · 3 series</b><i><b>thabo m.</b> · 082 ··· ····</i><i>saturday morning works best</i><span class="wb-btn"><i></i></span></div>
+                  <span class="wb-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                </div>
+              </div>
             </div>
-            <div class="wd-scene alt">
-              <div class="wd-screen"><div class="wd-float"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>yourbrand.co.za</span></div>
-                <div class="wf wf-check"><i class="wf-h"></i><span><b></b><i></i><em></em></span><span><b></b><i></i><em></em></span><span><b></b><i></i><em></em></span><span><b></b><i></i><em></em></span></div></div></div></div>
-              <div class="wd-copy"><p class="wd-t">tested at launch.</p><p class="wd-s">speed, forms and tracking checked before go-live.</p></div>
+            <div class="sf sf-b2" data-k="b2">
+              <span class="bd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm3 5h8M8 12.5h8M8 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div class="bob">
+                <div class="wb-bar"><i></i><i></i><i></i><span>cranecertifications.co.za</span></div>
+                <div class="b2-page">
+                  <div class="b2-copy"><b>certified, compliant, on site.</b><p>load testing and certification for cranes and lifting equipment, nationwide.</p><ul><li>load testing</li><li>inspections</li><li>certification</li></ul></div>
+                  <div class="b2-form"><b>request a quote</b><i class="b2-fld f1"><small>company</small><em>abc engineering</em></i><i class="b2-fld f2"><small>equipment</small><em>2 × overhead cranes, 10t</em></i><i class="b2-fld f3"><small>email</small><em>ops@···.co.za</em></i><span class="wb-btn"><span class="fill" aria-hidden="true"></span><i></i></span></div>
+                  <span class="wb-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#fff" stroke="#17181B" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+                </div>
+              </div>
             </div>
-            <button class="gad-pause wd-pause" type="button" aria-label="pause animation"><i></i></button>
+            <div class="sf sf-rs" data-k="rs">
+              <div class="bob">
+                <div class="rs-dev lap"><div class="rs-scr"><div class="wb-nav"><span class="wb-wm">umoya</span><i>stay</i><i>spa</i><i>book</i></div><div class="rs-hero"><b>breathe. this is umoya.</b></div><div class="rs-cols"><i></i><i></i><i></i></div></div><span class="rs-lab">desktop</span></div>
+                <div class="rs-dev tab"><div class="rs-scr"><div class="wb-nav"><span class="wb-wm">umoya</span><i>stay</i><i>book</i></div><div class="rs-hero"><b>breathe.</b></div><div class="rs-cols"><i></i><i></i></div></div><span class="rs-lab">tablet</span></div>
+                <div class="rs-dev ph"><div class="rs-scr"><div class="wb-nav"><span class="wb-wm">umoya</span></div><div class="rs-hero"><b>breathe.</b></div><div class="rs-cols"><i></i></div></div><span class="rs-lab">phone</span></div>
+              </div>
+            </div>
+
+            <i class="wb-wash" aria-hidden="true"></i>
+            <p class="wb-head"><span class="wb-rot"><span class="on">sell more</span><span>take bookings</span><span>drive enquiries</span><span>win quotes</span><span>fit every screen</span></span><span class="wb-fix"><span class="wb-with">with</span> <span class="grad">web design</span></span></p>
+            <button class="gad-pause wb-pause" type="button" aria-label="pause animation"><i></i></button>
           </div>
         </div>
       </article>
@@ -1587,29 +2474,30 @@ html.pop-lock #gblur{opacity:0}
   <section class="faq wrap" id="faq" data-nav="light" aria-labelledby="faqTitle">
     <div class="faq-grid">
       <div class="faq-head">
-        <h2 class="display" id="faqTitle">frequently asked questions</h2>
-        <p>straight answers to what we get asked most. anything else, <a href="#contact" data-call="">book a call</a> and ask us.</p>
+        <h2 class="display" id="faqTitle">frequently asked <span class="grad">questions</span></h2>
+        <p>straight answers to what we get asked most. anything else, ask us.</p>
+        <a href="#contact" class="btn" data-call="">book a call</a>
       </div>
       <div class="acc faq-acc">
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB1" id="fqH1"><span>how do i know conversion advantage can actually deliver results?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB1" id="fqH1"><em class="faq-n">01</em><span>how do i know conversion advantage can actually deliver results?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB1" role="region" aria-labelledby="fqH1"><div><div class="faq-a"><h4>proven results &amp; experience</h4><p>with over 15 years of experience working with leading brands across south africa, we've built a proven track record of delivering measurable growth. our strategies are backed by data and real-world performance across multiple industries, not guesswork.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB2" id="fqH2"><span>does conversion advantage have experience in my industry?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB2" id="fqH2"><em class="faq-n">02</em><span>does conversion advantage have experience in my industry?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB2" role="region" aria-labelledby="fqH2"><div><div class="faq-a"><h4>industry experience across key sectors</h4><p>we've worked across a wide range of sectors including hospitality, automotive, retail, insurance, fashion, boating and marine, real estate, ecommerce, wine farms and game farms. this cross-industry experience allows us to apply proven strategies while adapting to the unique dynamics of your market.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB3" id="fqH3"><span>can conversion advantage manage all aspects of our digital marketing?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB3" id="fqH3"><em class="faq-n">03</em><span>can conversion advantage manage all aspects of our digital marketing?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB3" role="region" aria-labelledby="fqH3"><div><div class="faq-a"><h4>full-service digital marketing</h4><p>yes. we offer a fully integrated service including paid media management, seo and ai seo, lead generation, social media management, copywriting, web development and management, as well as cro and ux optimisation. this ensures every part of your online presence is aligned and performing.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB4" id="fqH4"><span>how does your reporting work?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB4" id="fqH4"><em class="faq-n">04</em><span>how does your reporting work?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB4" role="region" aria-labelledby="fqH4"><div><div class="faq-a"><h4>transparency &amp; communication</h4><p>we prioritise clear communication and reporting, giving you full visibility into campaign performance, key metrics and ongoing optimisation efforts, with recommendations where we see further opportunities.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB5" id="fqH5"><span>do you focus on lead quality or just traffic?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB5" id="fqH5"><em class="faq-n">05</em><span>do you focus on lead quality or just traffic?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB5" role="region" aria-labelledby="fqH5"><div><div class="faq-a"><h4>lead quality over volume</h4><p>we prioritise high-quality leads that are more likely to convert. through targeting, messaging and continuous optimisation, we make sure your marketing attracts the right audience.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB6" id="fqH6"><span>how quickly can we go live and see results?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB6" id="fqH6"><em class="faq-n">06</em><span>how quickly can we go live and see results?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB6" role="region" aria-labelledby="fqH6"><div><div class="faq-a"><h4>speed &amp; execution</h4><p>with established systems and processes, we can launch campaigns efficiently. paid media delivers early data quickly, while seo, ai seo and cro build long-term, compounding results.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB7" id="fqH7"><span>do you incorporate ai into your marketing strategies?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB7" id="fqH7"><em class="faq-n">07</em><span>do you incorporate ai into your marketing strategies?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB7" role="region" aria-labelledby="fqH7"><div><div class="faq-a"><h4>innovation &amp; ai integration</h4><p>yes. we leverage ai-driven seo and advanced analytics to uncover opportunities, improve efficiency and keep your business ahead in an evolving digital landscape.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB8" id="fqH8"><span>why should we choose your agency?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB8" id="fqH8"><em class="faq-n">08</em><span>why should we choose your agency?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB8" role="region" aria-labelledby="fqH8"><div><div class="faq-a"><h4>a true growth partner</h4><p>we combine 15 years of experience, a full-service offering and deep cross-industry expertise. more importantly, we focus on building long-term partnerships where our success is directly tied to your business growth.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB9" id="fqH9"><span>how does your pricing work?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB9" id="fqH9"><em class="faq-n">09</em><span>how does your pricing work?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB9" role="region" aria-labelledby="fqH9"><div><div class="faq-a"><h4>pricing &amp; budget expectations</h4><p>investment depends on your goals, industry and growth targets. we work with you to define a budget that aligns with your expected return, so your spend is structured to generate measurable results rather than wasted effort.</p></div></div></div></div>
-        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB10" id="fqH10"><span>what makes conversion advantage's approach different from other agencies?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="fqB10" id="fqH10"><em class="faq-n">10</em><span>what makes conversion advantage's approach different from other agencies?</span><i aria-hidden="true"><svg><use href="#i-chev"/></svg></i></button>
           <div class="acc-body" id="fqB10" role="region" aria-labelledby="fqH10"><div><div class="faq-a"><h4>strategy built around growth</h4><p>our team of digital marketing experts all work from our offices in knysna. we work with 15 years of data and know-how, so there's no guesswork when onboarding a new client. we have worked with more than 75 brands globally and generated over 1 million leads for the clients we've helped grow.</p></div></div></div></div>
       </div>
     </div>
@@ -1617,7 +2505,7 @@ html.pop-lock #gblur{opacity:0}
 
   <section class="place wrap" id="knysna" data-nav="light">
     <div class="place-grid">
-      <h2 class="display">shaped by knysna</h2>
+      <h2 class="display"><i class="place-glow" aria-hidden="true"></i>shaped by <span class="grad">knysna</span></h2>
       <div class="place-copy">
         <p>our story starts on the south african coast, and that sense of place still shapes who we are.</p>
         <p>there's a groundedness here. a belief in substance over show, in doing things properly, speaking plainly, working hard and letting the quality of the work speak for itself. we've chosen to stay boutique by design, so we're hands-on and close to the detail on every account.</p>
@@ -1759,6 +2647,25 @@ html.pop-lock #gblur{opacity:0}
         <div class="wg-item"><div class="zz-txt"><h4>build your database</h4><p>with microsites, you can add online forms effortlessly and grow your contact list as visitors share their email addresses and mobile numbers. it’s a simple way to build your database, stay connected, and keep your audience up to date with your latest news and offers.</p></div><figure class="how-fig wg-fig wide"><img src="assets/popups/microsites/why-database.webp" width="1000" height="639" alt="a form submissions dashboard on a laptop listing contact form entries" loading="lazy" decoding="async"></figure></div>
       </div>
     </section>
+    <section aria-labelledby="msQa">
+      <div class="pop-sec-head qa-head"><h3 id="msQa">how it works</h3></div>
+      <div class="qs">
+        <div class="qs-steps">
+        <div class="qs-step on" data-qs="0"><figure class="qs-mob"><img src="assets/popups/microsites/qa-cost.webp" width="780" height="823" alt="a blue waters construction site on a laptop and a pam golding mauritius site on a phone" loading="lazy" decoding="async"></figure><h4>what does a microsite cost?</h4><p>one of the biggest barriers preventing businesses from upgrading their online presence is the high upfront cost associated with traditional website development.</p><p>custom website projects often require significant investment before a business sees any return. development fees, design costs, platform licensing, hosting, maintenance, content updates and ongoing support can quickly add up, making professional websites inaccessible for many businesses.</p></div>
+        <div class="qs-step" data-qs="1"><figure class="qs-mob"><img src="assets/popups/microsites/qa-speed.webp" width="780" height="823" alt="a ferrari model range on a laptop and a byd shark site on a phone" loading="lazy" decoding="async"></figure><h4>how quickly can i get started?</h4><p>one of the biggest frustrations businesses face when building a new website is the lengthy development process. traditional website projects can often take weeks or even months before they are ready to launch.</p><p>at conversion advantage, we built our microsites platform to eliminate those delays and help businesses get online faster.</p></div>
+        <div class="qs-step" data-qs="2"><figure class="qs-mob"><img src="assets/popups/microsites/qa-what.webp" width="780" height="823" alt="lxx boutique mall and blue waters construction microsites on two phones" loading="lazy" decoding="async"></figure><h4>what is a microsite?</h4><p>created from more than 15 years of digital marketing experience and refined over three years of continuous development, microsites combine proven agency expertise with modern technology to help businesses establish a high-performing online presence without the cost, complexity and lengthy timelines associated with traditional website development.</p></div>
+        <div class="qs-step" data-qs="3"><figure class="qs-mob"><img src="assets/popups/microsites/qa-switch.webp" width="780" height="823" alt="a pam golding mauritius agent site on a laptop" loading="lazy" decoding="async"></figure><h4>why brands are switching to microsites?</h4><p>the way consumers browse online has changed dramatically. today, the majority of website traffic comes from mobile devices, yet many businesses are still relying on outdated websites that were originally designed for desktop users.</p><p>leading brands are now moving towards mobile-first microsites that are faster, easier to navigate and built specifically to generate enquiries.</p></div>
+        <div class="qs-step" data-qs="4"><figure class="qs-mob"><img src="assets/popups/microsites/qa-why.webp" width="780" height="823" alt="mini montana, fusion 19 and giant bicycles microsites on three phones" loading="lazy" decoding="async"></figure><h4>why choose a microsite?</h4><p>for many businesses, a website is often viewed as a digital brochure. the reality is that modern websites should be working as lead-generation engines that actively drive enquiries, bookings and sales.</p><p>this is exactly why more businesses are turning to conversion advantage microsites. our microsites are built by digital marketing experts with one objective in mind: performance.</p></div>
+        </div>
+        <div class="qs-stage"><div class="qs-frame">
+          <img class="qs-img on" src="assets/popups/microsites/qa-cost.webp" width="780" height="823" alt="a blue waters construction site on a laptop and a pam golding mauritius site on a phone" loading="lazy" decoding="async">
+          <img class="qs-img" src="assets/popups/microsites/qa-speed.webp" width="780" height="823" alt="a ferrari model range on a laptop and a byd shark site on a phone" loading="lazy" decoding="async">
+          <img class="qs-img" src="assets/popups/microsites/qa-what.webp" width="780" height="823" alt="lxx boutique mall and blue waters construction microsites on two phones" loading="lazy" decoding="async">
+          <img class="qs-img" src="assets/popups/microsites/qa-switch.webp" width="780" height="823" alt="a pam golding mauritius agent site on a laptop" loading="lazy" decoding="async">
+          <img class="qs-img" src="assets/popups/microsites/qa-why.webp" width="780" height="823" alt="mini montana, fusion 19 and giant bicycles microsites on three phones" loading="lazy" decoding="async">
+        </div></div>
+      </div>
+    </section>
     <section aria-labelledby="msSvc">
       <div class="pop-sec-head"><h3 id="msSvc">our services</h3></div>
       <div class="acc">
@@ -1782,6 +2689,59 @@ html.pop-lock #gblur{opacity:0}
   </div></div>
 </div>
 <!-- ===== /MICROSITES POPUP ===== -->
+
+<!-- ===== AUTOMOTIVE MICROSITES POPUP (dealer connect) ===== -->
+<div class="pop au-grad" id="popAuto" data-pop-id="auto" data-pop-hash="automotive-microsites" role="dialog" aria-modal="true" aria-labelledby="auTitle" aria-hidden="true" data-lenis-prevent tabindex="-1">
+  <div class="pop-bar">
+    <span class="pop-crumb">services <span aria-hidden="true">/</span> <b>automotive microsites</b></span>
+    <button class="pop-x" type="button" data-pop-close aria-label="close automotive microsites"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <header class="pop-head"><i class="pop-glow" aria-hidden="true"></i><div class="pop-wrap pop-in">
+    <p class="eyebrow">dealer connect · built for dealerships</p><h2 class="display ph-backlit" id="auTitle">automotive microsites</h2><p class="ph-line">your online <span class="grad">digital showroom.</span></p>
+  </div></header>
+  <div class="pop-sheet pop-in d2"><div class="pop-wrap">
+    <section aria-labelledby="auHow">
+      <div class="pop-sec-head"><h3 id="auHow">how it works</h3></div>
+      <div class="zz">
+        <div class="zz-row"><div class="zz-txt"><p class="eyebrow">how it works</p><h4>capitalise on existing market demand.</h4><p>buyers are already searching with intent. google search, meta and direct traffic already exist. the problem is not demand, but where that demand lands. dealer connect gives high-intent shoppers a focused path to take action, instead of getting lost in a generic oem journey.</p></div><figure class="how-fig zz-fig"><img src="assets/popups/automotive/how-demand.webp" width="638" height="500" alt="a red sports car and a white sports car nose to nose on a seafront road" loading="lazy" decoding="async"></figure></div>
+        <div class="zz-row zz-flip"><figure class="how-fig zz-fig"><img src="assets/popups/automotive/how-control.webp" width="831" height="651" alt="a salesperson and a customer signing paperwork beside a blue car in a showroom" loading="lazy" decoding="async"></figure><div class="zz-txt"><p class="eyebrow">why it helps</p><h4>take control of conversions.</h4><p>a dealer-controlled conversion layer for automotive. dealer connect sits between demand and sales: a mobile-first, inventory-led digital showroom built to remove friction at the moment of decision. every enquiry is structured and vehicle-specific, so you capture clearer intent and higher-quality opportunities.</p></div></div>
+        <div class="zz-row"><div class="zz-txt"><p class="eyebrow">what it accomplishes</p><h4>close deals with real clarity.</h4><p>clear intent, faster follow-up, better outcomes. sales teams receive enquiries linked to the exact vehicle or action the customer wanted. no vague messages, no generic contact forms. that clarity drives better conversations, quicker responses and a higher conversion-to-sale rate.</p></div><figure class="how-fig zz-fig"><img src="assets/popups/automotive/how-clarity.webp" width="831" height="651" alt="a couple going through a brochure with a saleswoman in front of a silver suv" loading="lazy" decoding="async"></figure></div>
+      </div>
+    </section>
+    <section aria-labelledby="auWin" class="au-win zz-row">
+      <div class="zz-txt"><p class="eyebrow">intent, driven correctly</p><h4 id="auWin">a platform built for your success.</h4><p>sales teams have never had a better way to convert quality leads. gain access to the platform used by top dealerships — bmw, mini, subaru, mahindra and many more — and get your customers to the finish line faster than ever before with dealer connect.</p>
+      <ul class="au-logos" aria-label="dealerships on dealer connect">
+        <li><img src="assets/logos/bmw.webp" width="54" height="54" alt="bmw" loading="lazy" decoding="async"></li>
+        <li><img src="assets/logos/mini.webp" width="98" height="40" alt="mini" loading="lazy" decoding="async"></li>
+        <li><img src="assets/logos/subaru.webp" width="92" height="52" alt="subaru" loading="lazy" decoding="async"></li>
+        <li><img src="assets/logos/mahindra.webp" width="59" height="54" alt="mahindra" loading="lazy" decoding="async"></li>
+      </ul>
+      <div class="btns"><a href="#contact" class="btn" data-call="automotive microsites">book a call</a><a href="#work" class="btn ghost" data-pop-close>success stories</a></div></div>
+      <figure class="how-fig zz-fig"><img src="assets/popups/automotive/win-bakkie.webp" width="831" height="651" alt="a man sitting on the bonnet of a loaded bakkie at sunset" loading="lazy" decoding="async"></figure>
+    </section>
+    <section aria-labelledby="auSvc">
+      <div class="pop-sec-head"><h3 id="auSvc">our services</h3></div>
+      <div class="acc">
+        <div class="acc-row on"><button class="acc-btn" type="button" aria-expanded="true" aria-controls="auB1" id="auH1"><span>google ads</span><i aria-hidden="true"><svg><use href="#i-plus"/></svg></i></button>
+          <div class="acc-body" id="auB1" role="region" aria-labelledby="auH1"><div><div class="acc-panel">
+            <div class="acc-img cover"><img src="assets/popups/microsites/acc-gads.webp" width="1100" height="620" alt="a runner with youtube shorts, youtube, gmail and google app icons" loading="lazy" decoding="async"></div>
+            <div class="acc-txt"><h5>turn clicks into <span class="grad">action.</span></h5><p>google ads can put your business in front of the right people at exactly the right time. but strong campaigns need somewhere focused, fast, and effective to send that traffic. that’s where microsites fits naturally.</p><p>designed for speed, clarity, and conversion, a microsite gives your ads a streamlined destination that helps turn interest into action. we manage your google ads on a flexible month-to-month retainer with no lock-in contracts, and as google certified partners, you’ll have a dedicated account manager focused on ongoing optimisation and measurable results.</p><div class="btns"><button type="button" class="btn ghost" data-pop-go="#work">success stories</button><button type="button" class="btn" data-call="microsites">book a call</button></div></div>
+          </div></div></div></div>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="auB2" id="auH2"><span>social media</span><i aria-hidden="true"><svg><use href="#i-plus"/></svg></i></button>
+          <div class="acc-body" id="auB2" role="region" aria-labelledby="auH2"><div><div class="acc-panel">
+            <div class="acc-img cover"><img src="assets/popups/microsites/acc-social.webp" width="1100" height="619" alt="sponsored social posts floating on a blue sky" loading="lazy" decoding="async"></div>
+            <div class="acc-txt"><h5>turn attention into <span class="grad">momentum.</span></h5><p>social media is one of the most powerful ways to build awareness, grow trust, and stay connected to your audience. but to turn that engagement into leads or sales, you need a destination that feels just as seamless as the content that brought them there.</p><p>microsites works beautifully alongside social campaigns by giving visitors a focused, mobile-first experience built to guide action. our specialists help you strengthen your social media marketing through strategic planning, lead generation, and professionally designed content calendars, all shaped to help your platforms become consistent growth channels.</p><div class="btns"><button type="button" class="btn ghost" data-pop-go="#work">success stories</button><button type="button" class="btn" data-call="microsites">book a call</button></div></div>
+          </div></div></div></div>
+        <div class="acc-row"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="auB3" id="auH3"><span>seo</span><i aria-hidden="true"><svg><use href="#i-plus"/></svg></i></button>
+          <div class="acc-body" id="auB3" role="region" aria-labelledby="auH3"><div><div class="acc-panel">
+            <div class="acc-img fit"><img src="assets/popups/microsites/acc-seo.webp" width="1100" height="761" alt="a smiling woman with a laptop between seo analysis and google analytics panels" loading="lazy" decoding="async"></div>
+            <div class="acc-txt"><h5>show up when it <span class="grad">matters.</span></h5><p>seo helps your business stand out when people are actively searching for what you offer. and when your website is fast, focused, and easy for search engines to understand, your chances of ranking well become even stronger.</p><p>that’s why microsites complements seo so effectively. with a streamlined structure and tightly focused content, it creates a strong foundation for visibility and long-term organic growth. as google partners, we continuously refine our approach as search evolves, backed by in-depth reporting and monthly recommendations that keep your strategy moving forward.</p><div class="btns"><button type="button" class="btn ghost" data-pop-go="#work">success stories</button><button type="button" class="btn" data-call="microsites">book a call</button></div></div>
+          </div></div></div></div>
+      </div>
+    </section>
+  </div></div>
+</div>
+<!-- ===== /AUTOMOTIVE MICROSITES POPUP ===== -->
 
 <!-- ===== SEO POPUP ===== -->
 <div class="pop" id="popSeo" data-pop-id="seo" data-pop-hash="seo" role="dialog" aria-modal="true" aria-labelledby="seTitle" aria-hidden="true" data-lenis-prevent tabindex="-1">
@@ -1938,8 +2898,8 @@ html.pop-lock #gblur{opacity:0}
   const mqSmall = matchMedia('(max-width: 900px)'), small = () => mqSmall.matches;   /* phones and small tablets: the mobile layout */
   const pad2 = v => String(v).padStart(2, '0');
   /* the brand gradient as numbers, for colours picked by position along it */
-  const STOPS = [[253,157,35],[255,74,29],[243,49,137],[198,88,237],[98,122,255]];
-  const brandAt = t => { t = Math.min(1, Math.max(0, t)) * (STOPS.length - 1); const i = Math.min(STOPS.length - 2, Math.floor(t)), f = t - i; return STOPS[i].map((c, k) => Math.round(c + (STOPS[i + 1][k] - c) * f)); };
+  const STOPS = [[253,157,35],[255,74,29],[243,49,137],[198,88,237],[98,122,255]], AU_STOPS = [[41,74,244],[98,123,252],[67,162,204],[33,205,150],[19,225,126],[1,246,99]];
+  const brandAt = (t, S = STOPS) => { t = Math.min(1, Math.max(0, t)) * (S.length - 1); const i = Math.min(S.length - 2, Math.floor(t)), f = t - i; return S[i].map((c, k) => Math.round(c + (S[i + 1][k] - c) * f)); };
   const brandRgb = t => `rgb(${brandAt(t).join(',')})`;
 
   /* ---- smooth scroll (desktop; touch keeps native scrolling) ---- */
@@ -1995,35 +2955,24 @@ html.pop-lock #gblur{opacity:0}
     new IntersectionObserver(([e]) => { seen = e.isIntersecting; }, { threshold: .35 }).observe(root);
     btn.addEventListener('click', () => { paused = !paused; btn.classList.toggle('play', paused); btn.setAttribute('aria-label', paused ? 'play animation' : 'pause animation'); onToggle && onToggle(paused); });
   };
-  /* web design card: wireframe screens glide in and out, each with a title */
-  (() => {
-    const w = $('[data-wd]'); if (!w) return;
-    const sc = $$('.wd-scene', w); let i = 0;
-    cycle(w, $('.wd-pause', w), 4000, () => {
-      const a = sc[i]; i = (i + 1) % sc.length; const b = sc[i];
-      a.classList.remove('on'); a.classList.add('out'); setTimeout(() => a.classList.remove('out'), 950);
-      b.classList.remove('out'); void b.offsetWidth; b.classList.add('on');
-    }, paused => w.classList.toggle('held', paused));
-  })();
-  /* google ads + social media cards: phrase + ad format swap together */
   /* google ads + social media windows: a stack of surfaces that take turns. each surface is measured and scaled (--fit) to sit centred in the band above the headline, whatever the window's size; the headline phrase swaps with it */
-  const collage = (m, every, over) => {
-    const sf = $$('.sf', m), words = $$('.ma-rot > span, .ga-rot > span', m), head = $('.ma-head, .ga-head', m); let i = 0;
+  const collage = (m, every, over, under = () => 0, side = () => 0) => {
+    const sf = $$('.sf', m), words = $$('.ma-rot > span, .ga-rot > span, .so-rot > span, .wb-rot > span, .mc-rot > span, .au-rot > span', m), head = $('.ma-head, .ga-head, .so-head, .wb-head, .mc-head, .au-head', m); let i = 0;
     const fit = () => {
       const W = m.clientWidth, H = m.clientHeight; if (!W || !H) return;
       const top = Math.max(8, H * .03), availH = head.offsetTop - H * .02 - top, availW = W * .92;
       sf.forEach(s => {
         s.style.setProperty('--fit', 1);
-        const w = s.offsetWidth, h = s.offsetHeight, o = over(s, parseFloat(getComputedStyle(s).fontSize));   /* room above the card for the badge / a pop */
-        const f = Math.min(1, availW / w, availH / (h + o));
+        const em = parseFloat(getComputedStyle(s).fontSize), w = s.offsetWidth, h = s.offsetHeight, o = over(s, em), u = under(s, em), sd = side(s, em);   /* room above the card for the badge / a pop, below for labels, beside for floating notes */
+        const f = Math.min(1, availW / (w + sd * 2), availH / (h + o + u));
         s.style.setProperty('--fit', f.toFixed(4));
         s.style.left = ((W - w * f) / 2) + 'px';
-        s.style.top = (top + o * f + Math.max(0, (availH - (h + o) * f) / 2)) + 'px';
+        s.style.top = (top + o * f + Math.max(0, (availH - (h + o + u) * f) / 2)) + 'px';
       });
     };
     new ResizeObserver(fit).observe(m);
     document.fonts && document.fonts.ready.then(fit);
-    $$('.pic, .dg-pic, .yt-vid, .di-mpu', m).forEach(p => { const u = getComputedStyle(p).backgroundImage.match(/url\("?(.*?)"?\)/); if (u) { const im = new Image(); im.onload = fit; im.src = u[1]; } });
+    $$('.pic, .dg-pic, .yt-vid, .di-mpu, .bk-hero, .au-hero, .rs-hero', m).forEach(p => { const u = getComputedStyle(p).backgroundImage.match(/url\("?(.*?)"?\)/); if (u) { const im = new Image(); im.onload = fit; im.src = u[1]; } });
     fit();
     cycle(m, $('.gad-pause', m), every, () => {
       const w = words[i], n = (i + 1) % sf.length;
@@ -2035,6 +2984,17 @@ html.pop-lock #gblur{opacity:0}
   };
   $$('[data-ga]').forEach(m => collage(m, 4000, (s, em) => em * 1.2));
   $$('[data-ma]').forEach(m => collage(m, 3600, (s, em) => s.classList.contains('sf-wa') ? em * 2.8 : em));
+  $$('[data-so]').forEach(m => collage(m, 4600, (s, em) => em * 1.2));
+  /* microsites popup: sticky question story — the device frame swaps as each question crosses the middle of the popup */
+  $$('.qs').forEach(q => {
+    const steps = $$('.qs-step', q), imgs = $$('.qs-img', q), root = q.closest('.pop');
+    const show = k => { steps.forEach((s, i) => s.classList.toggle('on', i === k)); imgs.forEach((im, i) => im.classList.toggle('on', i === k)); };
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(+e.target.dataset.qs); }), { root, rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach(st => io.observe(st));
+  });
+  $$('[data-wb]').forEach(m => collage(m, 4400, (s, em) => em * 1.2, (s, em) => s.classList.contains('sf-rs') ? em * 1.8 : 0));
+  $$('[data-mc]').forEach(m => collage(m, 4400, () => 0, () => 0, (s, em) => em * 11));
+  $$('[data-au]').forEach(m => collage(m, 4600, (s, em) => em * 1.4, () => 0, (s, em) => em * 3));
 
   const work = [
     { name:'mantis collection', tag:'an exceptional place to find yourself', metric:'+10.6%', label:'total sales, 2024 vs 2025, with the first measurable revenue from google ads', svc:'google ads', vid:'mantis', vidLabel:'founders lodge by mantis: mist over the reserve, rhino, giraffe and zebra, a picnic with a view and a game drive at sunset' },
@@ -2070,19 +3030,7 @@ html.pop-lock #gblur{opacity:0}
 
   /* ---- gradual blur: stacked backdrop blurs, strength builds toward the bottom edge ---- */
   (() => {
-    const host = $('#gblur'), n = 3, inc = 100 / n, curve = p => p * p * (3 - 2 * p);
-    const build = () => {
-    const strength = small() ? 1 : 1.4;
-    let html = '';
-    for (let i = 1; i <= n; i++) {
-      const pr = curve(i / n), blur = (Math.pow(2, pr * 4) * 0.0625 * strength).toFixed(3);
-      const p1 = +(inc * i - inc).toFixed(1), p2 = +(inc * i).toFixed(1), p3 = +(inc * i + inc).toFixed(1), p4 = +(inc * i + inc * 2).toFixed(1);
-      let g = `transparent ${p1}%, black ${p2}%`; if (p3 <= 100) g += `, black ${p3}%`; if (p4 <= 100) g += `, transparent ${p4}%`;
-      html += `<div style="-webkit-mask-image:linear-gradient(to bottom, ${g});mask-image:linear-gradient(to bottom, ${g});-webkit-backdrop-filter:blur(${blur}rem);backdrop-filter:blur(${blur}rem)"></div>`;
-    }
-    host.innerHTML = html;
-    };
-    build(); mqSmall.addEventListener('change', build);
+    $('#gblur').innerHTML = '<div></div>';   /* one blur layer, faded in by its mask (the old three-layer stack cost three backdrop passes per scroll frame) */
   })();
 
   /* ---- service cards: counter (number, "/ 06" and a gradient progress line in the colour of its end point) ---- */
@@ -2185,7 +3133,7 @@ html.pop-lock #gblur{opacity:0}
         const kx = dx ? cx / Math.abs(dx) : Infinity, ky = dy ? cy / Math.abs(dy) : Infinity;
         const prox = Math.min(Math.max(1 / Math.min(kx, ky), 0), 1) * 100;
         let ang = Math.atan2(dy, dx) * 180 / Math.PI + 90; if (ang < 0) ang += 360;
-        const [R, G2, B] = brandAt(x / r.width);
+        const [R, G2, B] = brandAt(x / r.width, b.closest('.au-grad') ? AU_STOPS : STOPS);
         const a = v => `rgba(${R},${G2},${B},${v})`;
         const level = floor >= 0 ? floor + prox * (100 - floor) / 100 : Math.max(0, (prox - 30) / 70 * 100);
         el.style.setProperty('--prox', level.toFixed(1));
